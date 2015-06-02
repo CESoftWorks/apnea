@@ -22,6 +22,7 @@ Copyright (C) 2015 Constantinos Eleftheriou
 from PySide.QtGui import QApplication
 import sys
 import db_init
+import ui_mainwindow
 
 
 def main():
