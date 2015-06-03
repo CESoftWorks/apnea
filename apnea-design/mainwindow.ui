@@ -46,8 +46,8 @@
              <string>Add a New Patient</string>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>../icons/add_patients.ico</normaloff>../icons/add_patients.ico</iconset>
+             <iconset resource="icons.qrc">
+              <normaloff>:/apnea/resources/icons/add_patients.ico</normaloff>:/apnea/resources/icons/add_patients.ico</iconset>
             </property>
            </widget>
           </item>
@@ -57,8 +57,8 @@
              <string>Book an Appointment</string>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>../icons/book_appointment.ico</normaloff>../icons/book_appointment.ico</iconset>
+             <iconset resource="icons.qrc">
+              <normaloff>:/apnea/resources/icons/book_appointment.ico</normaloff>:/apnea/resources/icons/book_appointment.ico</iconset>
             </property>
            </widget>
           </item>
@@ -68,8 +68,8 @@
              <string>View Appointments</string>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>../icons/view_appointments.ico</normaloff>../icons/view_appointments.ico</iconset>
+             <iconset resource="icons.qrc">
+              <normaloff>:/apnea/resources/icons/view_appointments.ico</normaloff>:/apnea/resources/icons/view_appointments.ico</iconset>
             </property>
            </widget>
           </item>
@@ -79,8 +79,8 @@
              <string>View Patient Archive</string>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>../icons/view_patients.ico</normaloff>../icons/view_patients.ico</iconset>
+             <iconset resource="icons.qrc">
+              <normaloff>:/apnea/resources/icons/view_patients.ico</normaloff>:/apnea/resources/icons/view_patients.ico</iconset>
             </property>
            </widget>
           </item>
@@ -90,8 +90,8 @@
              <string>Set Available Dates for Appointments</string>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>../icons/set_dates.ico</normaloff>../icons/set_dates.ico</iconset>
+             <iconset resource="icons.qrc">
+              <normaloff>:/apnea/resources/icons/set_dates.ico</normaloff>:/apnea/resources/icons/set_dates.ico</iconset>
             </property>
            </widget>
           </item>
@@ -101,8 +101,8 @@
              <string>Reports</string>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>../icons/reports.ico</normaloff>../icons/reports.ico</iconset>
+             <iconset resource="icons.qrc">
+              <normaloff>:/apnea/resources/icons/reports.ico</normaloff>:/apnea/resources/icons/reports.ico</iconset>
             </property>
            </widget>
           </item>
@@ -112,8 +112,8 @@
              <string>Settings</string>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>../icons/settings.ico</normaloff>../icons/settings.ico</iconset>
+             <iconset resource="icons.qrc">
+              <normaloff>:/apnea/resources/icons/settings.ico</normaloff>:/apnea/resources/icons/settings.ico</iconset>
             </property>
            </widget>
           </item>
@@ -140,8 +140,8 @@
              <string>About</string>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>../icons/about.ico</normaloff>../icons/about.ico</iconset>
+             <iconset resource="icons.qrc">
+              <normaloff>:/apnea/resources/icons/about.ico</normaloff>:/apnea/resources/icons/about.ico</iconset>
             </property>
            </widget>
           </item>
@@ -151,8 +151,8 @@
              <string>Help</string>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>../icons/help.ico</normaloff>../icons/help.ico</iconset>
+             <iconset resource="icons.qrc">
+              <normaloff>:/apnea/resources/icons/help.ico</normaloff>:/apnea/resources/icons/help.ico</iconset>
             </property>
            </widget>
           </item>
@@ -162,8 +162,8 @@
              <string>Quit</string>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>../icons/quit.ico</normaloff>../icons/quit.ico</iconset>
+             <iconset resource="icons.qrc">
+              <normaloff>:/apnea/resources/icons/quit.ico</normaloff>:/apnea/resources/icons/quit.ico</iconset>
             </property>
            </widget>
           </item>
@@ -192,7 +192,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap>../icons/logo.jpg</pixmap>
+         <pixmap resource="icons.qrc">:/apnea/resources/icons/logo.jpg</pixmap>
         </property>
        </widget>
       </item>
@@ -247,7 +247,9 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonQuit</sender>

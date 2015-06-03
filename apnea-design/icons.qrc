@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/apnea/resources">
+        <file>icons/about.ico</file>
+        <file>icons/add_patients.ico</file>
+        <file>icons/book_appointment.ico</file>
+        <file>icons/help.ico</file>
+        <file>icons/logo.jpg</file>
+        <file>icons/quit.ico</file>
+        <file>icons/reports.ico</file>
+        <file>icons/set_dates.ico</file>
+        <file>icons/settings.ico</file>
+        <file>icons/view_appointments.ico</file>
+        <file>icons/view_patients.ico</file>
+    </qresource>
+</RCC>
