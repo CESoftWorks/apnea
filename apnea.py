@@ -34,7 +34,22 @@ class MainWindow(QMainWindow,
         self.uiConnect()  # Connects form's buttons to events
 
     def uiConnect(self):
-        return
+        self.buttonNewPatient.clicked.\
+            connect(self.buttonNewPatientClicked)
+        self.buttonBookAppointment.clicked.\
+            connect(self.buttonBookAppointmentClicked)
+        self.buttonViewAppointments.clicked.\
+            connect(self.buttonViewAppointmentsClicked)
+        self.buttonViewPatients.clicked.\
+            connect(self.buttonViewPatientsClicked)
+        self.buttonSetAvailableDates.clicked.\
+            connect(self.buttonSetAvailableDatesClicked)
+        self.buttonReports.clicked.\
+            connect(self.buttonReportsClicked)
+        self.buttonSettings.clicked.\
+            connect(self.buttonSettingsClicked)
+        self.buttonAbout.clicked.connect(self.buttonAboutClicked)
+        self.buttonHelp.clicked.connect(self.buttonHelpClicked)
 
     def buttonNewPatientClicked(self):
         print('Launching new patient form...')
