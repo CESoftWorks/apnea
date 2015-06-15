@@ -65,7 +65,7 @@ class DatabaseInit():
                       )""")
 
         # Check for errors
-        if not query.isActive():  # Returns 'False' if error occured
+        if not query.isActive():  # Returns 'False' if error occurred
             print('Error: Could not initialize patients table!')
             print(query.lastError().text())
             return False
