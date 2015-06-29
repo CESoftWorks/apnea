@@ -41,7 +41,8 @@ class NewPatientForm(QDialog,
         self.btnSave.clicked.connect(self.btnSaveClicked)
         self.btnSaveAddNew.clicked.\
             connect(self.btnSaveAddNewClicked)
-        self.spnHeight.setMaximum(999)
+        self.spnHeight.setMaximum(220)
+        self.spnWeight.setMaximum(300)
 
     def btnCalculateBmiClicked(self):
         # Calculate BMI using weight and height data
@@ -53,20 +54,31 @@ class NewPatientForm(QDialog,
 
     def btnResetClicked(self):
         # Clear all fields
-        self.txtPatientId.clear()
-        self.txtName.clear()
-        self.txtSurname.clear()
-        self.txtPhone.clear()
-        self.txtBriefAssessment.clear()
-        self.txtBmi.clear()
-        self.spnWeight.minimum()
-        self.spnHeight.minimum()
-        self.dateDob.minimumDate()
-        self.cbxSex.clear()
-        self.spnEpsworth.minimum()
-        self.txtPatientId.setFocus()
+        self.clearFields()
 
     def btnSaveClicked(self):
+        q_status, q_error = self.insertPatient()
+        if q_status:
+            QMessageBox.information(self, "Success", "New patient record added successfully")
+            self.close()
+        else:
+            QMessageBox.warning(self, "Failure", "Could not add new patient! Error: {}".format(
+                q_error))
+            self.clearFields()  # Clear all fields
+
+    def btnSaveAddNewClicked(self):
+        q_status, q_error = self.insertPatient()
+        if q_status:
+            QMessageBox.information(self, "Success", "New patient record added successfully")
+            self.clearFields()
+        else:
+            QMessageBox.warning(self, "Failure", "Could not add new patient! Error: {}".format(
+                q_error))
+            self.clearFields()
+
+    def insertPatient(self):
+        # Insert new patient and return query status
+        # TODO Add form data validation?
         db_patients = PatientQueries()
         q_status, q_error = db_patients.insert(patientid=self.txtPatientId.text(),
                            name=self.txtName.text(),
@@ -79,13 +91,18 @@ class NewPatientForm(QDialog,
                            bmi=self.txtBmi.text(),
                            epsworth=self.spnEpsworth.text(),
                            assessment=str(self.txtBriefAssessment.document().toPlainText()))
-        if q_status:
-            QMessageBox.information(self, "Success", "New patient record added successfully")
-            self.close()
-        else:
-            QMessageBox.warning(self, "Failure", "Could not add new patient! Error: {}".format(
-                q_error))
-            self.btnResetClicked()  # Clear all fields
+        return q_status, q_error
 
-    def btnSaveAddNewClicked(self):
-        return
+    def clearFields(self):
+        self.txtPatientId.clear()
+        self.txtName.clear()
+        self.txtSurname.clear()
+        self.txtPhone.clear()
+        self.txtBriefAssessment.clear()
+        self.txtBmi.clear()
+        self.spnWeight.minimum()
+        self.spnHeight.minimum()
+        self.dateDob.minimumDate()
+        self.cbxSex.clear()
+        self.spnEpsworth.minimum()
+        self.txtPatientId.setFocus()
