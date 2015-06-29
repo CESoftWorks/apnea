@@ -20,8 +20,9 @@ Copyright (C) 2015 Constantinos Eleftheriou
 """
 
 from decimal import Decimal
-from PySide.QtGui import QDialog
+from PySide.QtGui import QDialog, QMessageBox
 import ui_newpatient
+from db_queries import PatientQueries
 
 
 class NewPatientForm(QDialog,
@@ -63,9 +64,28 @@ class NewPatientForm(QDialog,
         self.dateDob.minimumDate()
         self.cbxSex.clear()
         self.spnEpsworth.minimum()
+        self.txtPatientId.setFocus()
 
     def btnSaveClicked(self):
-        return
+        db_patients = PatientQueries()
+        q_status, q_error = db_patients.insert(patientid=self.txtPatientId.text(),
+                           name=self.txtName.text(),
+                           surname=self.txtSurname.text(),
+                           sex=self.cbxSex.currentText(),
+                           dob=self.dateDob.text(),
+                           phone=self.txtPhone.text(),
+                           height=self.spnHeight.text(),
+                           weight=self.spnWeight.text(),
+                           bmi=self.txtBmi.text(),
+                           epsworth=self.spnEpsworth.text(),
+                           assessment=str(self.txtBriefAssessment.document().toPlainText()))
+        if q_status:
+            QMessageBox.information(self, "Success", "New patient record added successfully")
+            self.close()
+        else:
+            QMessageBox.warning(self, "Failure", "Could not add new patient! Error: {}".format(
+                q_error))
+            self.btnResetClicked()  # Clear all fields
 
     def btnSaveAddNewClicked(self):
         return

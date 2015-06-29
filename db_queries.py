@@ -57,10 +57,10 @@ class PatientQueries():
         if not query.isActive():
             print('Error: Could not add new patient record!')
             print(query.lastError().text())
-            return False
+            return False, query.lastError().text()
 
         print('New patient added successfully')
-        return True
+        return True, None
 
     def delete(self, patientid):
         query = QSqlQuery()
