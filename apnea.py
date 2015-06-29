@@ -23,6 +23,7 @@ from PySide.QtGui import QApplication, QMainWindow
 import sys
 import db_init
 import ui_mainwindow
+from newpatient import NewPatientForm
 
 
 class MainWindow(QMainWindow,
@@ -53,6 +54,9 @@ class MainWindow(QMainWindow,
 
     def buttonNewPatientClicked(self):
         print('Launching new patient form...')
+        newpatientform = NewPatientForm()
+        newpatientform.show()
+        newpatientform.exec_()
 
     def buttonBookAppointmentClicked(self):
         print('Launching appointment booking window...')

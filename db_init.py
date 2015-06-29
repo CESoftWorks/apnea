@@ -27,7 +27,7 @@ import sys
 class DatabaseInit():
     # Print statements are for debug output
     def __init__(self):
-        self.filename = 'apneadb.sqlite'  # Editable in settings?
+        self.filename = 'apneadb.sqlite'  # TODO Make editable in settings?
 
         print('Connecting to database...')
         self.db = QSqlDatabase.addDatabase('QSQLITE')
