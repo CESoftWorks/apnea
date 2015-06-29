@@ -71,10 +71,10 @@ class PatientQueries():
         if not query.isActive():
             print('Error: Could not delete patient record!')
             print(query.lastError().text())
-            return False
+            return False, query.lastError().text()
 
         print('Patient record deleted successfully')
-        return True
+        return True, None
 
     def update(self, patientid, u_name, u_surname, u_sex, u_dob,
                u_phone, u_height, u_weight, u_bmi, u_epsworth, u_assessment):
@@ -110,10 +110,10 @@ class PatientQueries():
         if not query.isActive():
             print('Error: Could not update patient record!')
             print(query.lastError().text())
-            return False
+            return False, query.lastError().text()
 
         print('Patient record updated successfully')
-        return True
+        return True, None
 
 
 class AppointmentQueries():
@@ -147,10 +147,10 @@ class AppointmentQueries():
         if not query.isActive():
             print('Error: Could not add new appointment record!')
             print(query.lastError().text())
-            return False
+            return False, query.lastError().text()
 
         print('New appointment added successfully')
-        return True
+        return True, None
 
     def delete(self, appointmentid):
         query = QSqlQuery()
@@ -161,10 +161,10 @@ class AppointmentQueries():
         if not query.isActive():
             print('Error: Could not delete appointment record!')
             print(query.lastError().text())
-            return False
+            return False, query.lastError().text()
 
         print('Appointment record deleted successfully')
-        return True
+        return True, None
 
     def update(self, appointmentid, u_regdate, u_refdoctor, u_priority,
                u_testdate, u_diagnosis, u_ahi, u_treatment, u_psgreport,
@@ -200,10 +200,10 @@ class AppointmentQueries():
         if not query.isActive():
             print('Error: Could not update appointment record!')
             print(query.lastError().text())
-            return False
+            return False, query.lastError().text()
 
         print('Appointment record updated successfully')
-        return True
+        return True, None
 
 
 # TESTING
