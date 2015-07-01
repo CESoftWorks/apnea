@@ -19,7 +19,7 @@ Copyright (C) 2015 Constantinos Eleftheriou
     along with Apnea.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PySide.QtGui import QDialog, QMessageBox
+from PySide.QtGui import QDialog
 import ui_appointmentdates
 import pickle
 import os.path
