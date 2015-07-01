@@ -34,10 +34,12 @@ class AppointmentDatesForm(QDialog,
         super(AppointmentDatesForm, self).__init__(parent)
         self.setupUi(self)
         self.uiConnect()
+        # Set to store appointment dates
         self.dates = set()
         self.showDates()
 
     def uiConnect(self):
+        # Connects form's buttons to appropriate events
         self.btnAddDate.clicked.connect(self.btnAddDateClicked)
         self.btnRemoveDate.clicked.\
             connect(self.btnRemoveDateClicked)
@@ -45,33 +47,47 @@ class AppointmentDatesForm(QDialog,
         self.chkShowLegacy.clicked.connect(self.showDates)
 
     def btnAddDateClicked(self):
+        # Fetch date selected from calendar widget
         selected_date = self.calendarDatesSelect.selectedDate()
+        # Convert to python datetime format
         py_date = selected_date.toPython()
+        # Add to dates set
         self.dates.add(py_date)
-        self.storeDates()
-        self.showDates()
+        self.storeDates()  # Method to store dates set
+        self.showDates()  # Method to display dates set in list widget
 
     def btnRemoveDateClicked(self):
+        # Fetch selection from list widget as string
         selected_date = self.listAllDates.currentItem().text()
+        # Convert string to datetime object and remove from dates set
         self.dates.remove(datetime.datetime.strptime(selected_date, "%d/%m/%y").date())
         self.storeDates()
         self.showDates()
 
     def showDates(self):
+        # Fetch dates from pickle
         self.retrieveDates()
+        # Clear list widget to avoid duplication
         self.listAllDates.clear()
         for date in sorted(self.dates):
+            # Check if user wants to see legacy dates
             if not self.chkShowLegacy.isChecked():
+                # Fetch today and future dates
                 if date >= datetime.date.today():
+                    # Convert to string, then dump to list widget
                     self.listAllDates.addItem(datetime.date.strftime(date, "%d/%m/%y"))
             else:
                 self.listAllDates.addItem(datetime.date.strftime(date, "%d/%m/%y"))
 
     def retrieveDates(self):
+        # Check if file exists before opening
         if os.path.isfile(fname):
+            # 'with' handles closing of file
             with open(fname, 'rb') as handle:
+                # Load dates from pickle to instance variable
                 self.dates = pickle.load(handle)
 
     def storeDates(self):
+        # Store dates instance variable
         with open(fname, 'wb') as handle:
             pickle.dump(self.dates, handle)
