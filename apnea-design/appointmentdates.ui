@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>516</width>
+    <width>537</width>
     <height>504</height>
    </rect>
   </property>
@@ -29,7 +29,7 @@
         <widget class="QCalendarWidget" name="calendarDatesSelect"/>
        </item>
        <item>
-        <widget class="QListView" name="listAllDates"/>
+        <widget class="QListWidget" name="listAllDates"/>
        </item>
       </layout>
      </item>
@@ -66,6 +66,13 @@
         <widget class="QPushButton" name="btnRemoveDate">
          <property name="text">
           <string>Remove Date</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="chkShowLegacy">
+         <property name="text">
+          <string>Show Legacy Dates</string>
          </property>
         </widget>
        </item>

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'appointmentdates.ui'
 #
-# Created: Tue Jun 30 12:51:44 2015
+# Created: Wed Jul  1 20:33:26 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(516, 504)
+        Dialog.resize(537, 504)
         self.horizontalLayout_2 = QtGui.QHBoxLayout(Dialog)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.horizontalLayout = QtGui.QHBoxLayout()
@@ -25,7 +25,7 @@ class Ui_Dialog(object):
         self.calendarDatesSelect = QtGui.QCalendarWidget(Dialog)
         self.calendarDatesSelect.setObjectName("calendarDatesSelect")
         self.verticalLayout.addWidget(self.calendarDatesSelect)
-        self.listAllDates = QtGui.QListView(Dialog)
+        self.listAllDates = QtGui.QListWidget(Dialog)
         self.listAllDates.setObjectName("listAllDates")
         self.verticalLayout.addWidget(self.listAllDates)
         self.horizontalLayout.addLayout(self.verticalLayout)
@@ -44,6 +44,9 @@ class Ui_Dialog(object):
         self.btnRemoveDate = QtGui.QPushButton(Dialog)
         self.btnRemoveDate.setObjectName("btnRemoveDate")
         self.verticalLayout_2.addWidget(self.btnRemoveDate)
+        self.chkShowLegacy = QtGui.QCheckBox(Dialog)
+        self.chkShowLegacy.setObjectName("chkShowLegacy")
+        self.verticalLayout_2.addWidget(self.chkShowLegacy)
         spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem1)
         self.btnBack = QtGui.QPushButton(Dialog)
@@ -60,5 +63,6 @@ class Ui_Dialog(object):
         self.label.setText(QtGui.QApplication.translate("Dialog", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Please enter dates available <br/>for polysomnography appointments</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.btnAddDate.setText(QtGui.QApplication.translate("Dialog", "Add Date", None, QtGui.QApplication.UnicodeUTF8))
         self.btnRemoveDate.setText(QtGui.QApplication.translate("Dialog", "Remove Date", None, QtGui.QApplication.UnicodeUTF8))
+        self.chkShowLegacy.setText(QtGui.QApplication.translate("Dialog", "Show Legacy Dates", None, QtGui.QApplication.UnicodeUTF8))
         self.btnBack.setText(QtGui.QApplication.translate("Dialog", "Back", None, QtGui.QApplication.UnicodeUTF8))
 
