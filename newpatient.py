@@ -2,7 +2,7 @@ __author__ = 'Constantinos Eleftheriou'
 
 """
 Copyright (C) 2015 Constantinos Eleftheriou
-    
+
     This file is part of Apnea.
 
     Apnea is free software: you can redistribute it and/or modify
@@ -48,6 +48,10 @@ class NewPatientForm(QDialog,
         # Calculate BMI using weight and height data
         weight = Decimal(self.spnWeight.value())
         height = Decimal(self.spnHeight.value()) / 100
+        # Return 0 if weight or height is 0
+        if weight == 0 or height == 0:
+            self.txtBmi.setText("0")
+            return
         bmi = weight / (height * height)
         # Give answer in BMI textbox to 2 dp
         self.txtBmi.setText(str(round(bmi, 2)))
@@ -81,16 +85,16 @@ class NewPatientForm(QDialog,
         # TODO Add form data validation?
         db_patients = PatientQueries()
         q_status, q_error = db_patients.insert(patientid=self.txtPatientId.text(),
-                           name=self.txtName.text(),
-                           surname=self.txtSurname.text(),
-                           sex=self.cbxSex.currentText(),
-                           dob=self.dateDob.text(),
-                           phone=self.txtPhone.text(),
-                           height=self.spnHeight.text(),
-                           weight=self.spnWeight.text(),
-                           bmi=self.txtBmi.text(),
-                           epsworth=self.spnEpsworth.text(),
-                           assessment=str(self.txtBriefAssessment.document().toPlainText()))
+                                               name=self.txtName.text(),
+                                               surname=self.txtSurname.text(),
+                                               sex=self.cbxSex.currentText(),
+                                               dob=self.dateDob.text(),
+                                               phone=self.txtPhone.text(),
+                                               height=self.spnHeight.text(),
+                                               weight=self.spnWeight.text(),
+                                               bmi=self.txtBmi.text(),
+                                               epsworth=self.spnEpsworth.text(),
+                                               assessment=str(self.txtBriefAssessment.document().toPlainText()))
         return q_status, q_error
 
     def clearFields(self):

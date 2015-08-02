@@ -2,7 +2,7 @@ __author__ = 'Constantinos Eleftheriou'
 
 """
 Copyright (C) 2015 Constantinos Eleftheriou
-    
+
     This file is part of Apnea.
 
     Apnea is free software: you can redistribute it and/or modify
@@ -216,8 +216,8 @@ if __name__ == '__main__':
     patients.delete(223344)
     patients.insert(112233, name='Dave', surname='Husky')
     patients.update(112233, u_name='Dave', u_surname='Husky', u_sex='Male',
-                     u_phone='22334455', u_dob='14/05/1980', u_height=165,
-                     u_weight=98, u_bmi=24, u_epsworth=10, u_assessment='Asshole')
+                    u_phone='22334455', u_dob='14/05/1980', u_height=165,
+                    u_weight=98, u_bmi=24, u_epsworth=10, u_assessment='Asshole')
 
     appointments = AppointmentQueries()
     appointments.insert(112233)
