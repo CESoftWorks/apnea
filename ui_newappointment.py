@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'newappointment.ui'
 #
-# Created: Wed Aug  5 13:03:30 2015
+# Created: Wed Aug  5 13:37:16 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -28,6 +28,11 @@ class Ui_Dialog(object):
         self.label_2.setObjectName("label_2")
         self.horizontalLayout.addWidget(self.label_2)
         self.labelPatientID = QtGui.QLabel(Dialog)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(1)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.labelPatientID.sizePolicy().hasHeightForWidth())
+        self.labelPatientID.setSizePolicy(sizePolicy)
         self.labelPatientID.setFrameShape(QtGui.QFrame.Box)
         self.labelPatientID.setFrameShadow(QtGui.QFrame.Sunken)
         self.labelPatientID.setObjectName("labelPatientID")
@@ -42,9 +47,9 @@ class Ui_Dialog(object):
         self.label_3 = QtGui.QLabel(Dialog)
         self.label_3.setObjectName("label_3")
         self.horizontalLayout_2.addWidget(self.label_3)
-        self.txtRegDate = QtGui.QLineEdit(Dialog)
-        self.txtRegDate.setObjectName("txtRegDate")
-        self.horizontalLayout_2.addWidget(self.txtRegDate)
+        self.dateEdit = QtGui.QDateEdit(Dialog)
+        self.dateEdit.setObjectName("dateEdit")
+        self.horizontalLayout_2.addWidget(self.dateEdit)
         self.verticalLayout_4.addLayout(self.horizontalLayout_2)
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
@@ -105,7 +110,6 @@ class Ui_Dialog(object):
         self.verticalLayout_5.addLayout(self.verticalLayout_3)
         self.horizontalLayout_5.addLayout(self.verticalLayout_5)
         self.label_2.setBuddy(self.buttonPatientSelect)
-        self.label_3.setBuddy(self.txtRegDate)
         self.label_4.setBuddy(self.txtRefDoc)
         self.label_5.setBuddy(self.cbxPriority)
         self.label_6.setBuddy(self.txtNotes)

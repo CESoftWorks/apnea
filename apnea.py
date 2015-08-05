@@ -25,6 +25,7 @@ import db_init
 import ui_mainwindow
 from newpatient import NewPatientForm
 from appointmentdates import AppointmentDatesForm
+from newappointment import NewAppointmentForm
 
 
 class MainWindow(QMainWindow,
@@ -61,6 +62,9 @@ class MainWindow(QMainWindow,
 
     def buttonBookAppointmentClicked(self):
         print('Launching appointment booking window...')
+        newappointmentform = NewAppointmentForm()
+        newappointmentform.show()
+        newappointmentform.exec_()
 
     def buttonViewAppointmentsClicked(self):
         print('Showing all booked appointments...')
