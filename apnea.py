@@ -56,13 +56,13 @@ class MainWindow(QMainWindow,
 
     def buttonNewPatientClicked(self):
         print('Launching new patient form...')
-        newpatientform = NewPatientForm()
+        newpatientform = NewPatientForm(self)
         newpatientform.show()
         newpatientform.exec_()
 
     def buttonBookAppointmentClicked(self):
         print('Launching appointment booking window...')
-        newappointmentform = NewAppointmentForm()
+        newappointmentform = NewAppointmentForm(self)
         newappointmentform.show()
         newappointmentform.exec_()
 
@@ -74,7 +74,7 @@ class MainWindow(QMainWindow,
 
     def buttonSetAvailableDatesClicked(self):
         print('Setting dates available for appointments...')
-        appointmentdates = AppointmentDatesForm()
+        appointmentdates = AppointmentDatesForm(self)
         appointmentdates.show()
         appointmentdates.exec_()
 
