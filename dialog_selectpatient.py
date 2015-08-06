@@ -20,8 +20,9 @@ Copyright (C) 2015 Constantinos Eleftheriou
 """
 
 from PySide.QtGui import QDialog, QMessageBox
+from PySide.QtCore import *
 import uidlg_selectpatient
-
+from db_data import PatientData
 
 
 class DialogSelectPatient(QDialog, uidlg_selectpatient.Ui_Dialog):
@@ -33,8 +34,9 @@ class DialogSelectPatient(QDialog, uidlg_selectpatient.Ui_Dialog):
         self.loadPatients()
 
     def uiConnect(self):
-        self.buttonAddNewPatient.clicked().connect(self.buttonAddNewPatientClicked)
-        self.buttonSelectPatient.clicked().connect(self.buttonSelectPatientClicked)
+        self.buttonAddNewPatient.clicked.connect(self.buttonAddNewPatientClicked)
+        self.buttonSelectPatient.clicked.connect(self.buttonSelectPatientClicked)
+
 
     def buttonAddNewPatientClicked(self):
         return
@@ -43,4 +45,6 @@ class DialogSelectPatient(QDialog, uidlg_selectpatient.Ui_Dialog):
         return
 
     def loadPatients(self):
+        patients = PatientData().returnAll()
+        self.tablePatients.setModel(patients)
         return

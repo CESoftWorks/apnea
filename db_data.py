@@ -1,0 +1,107 @@
+__author__ = 'Constantinos Eleftheriou'
+
+"""
+Copyright (C) 2015 Constantinos Eleftheriou
+    
+    This file is part of Apnea.
+
+    Apnea is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Apnea is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Apnea.  If not, see <http://www.gnu.org/licenses/>.
+"""
+
+from PySide.QtSql import QSqlQuery, QSqlDatabase
+from PySide.QtCore import *
+
+# The following classes assume that connection to the database
+# has already been established.
+# All functions return True if successful or False if errors occurred
+
+
+class PatientData():
+
+    def __init__(self):
+        super(PatientData, self).__init__()
+        self.headers = ['Patient ID', 'Name', 'Surname', 'Sex', 'Date of Birth',
+                        'Phone', 'Height', 'Weight', 'BMI', 'Epsworth Score',
+                        'Brief Assessment']
+
+    def returnAll(self):
+        data = self._returnAll()
+        model = PatientDataModel(data, self.headers)
+        return model
+
+    def _returnAll(self):
+        query = QSqlQuery()
+        query.exec_("SELECT * FROM patients ORDER BY patientid ASC")
+        patients = []
+        if query:
+            while query.next():
+                data = []  # Hold individual patient data
+                data.append(query.value(0))  # patientid
+                data.append(query.value(1))  # name
+                data.append(query.value(2))  # surname
+                data.append(query.value(3))  # sex
+                data.append(query.value(4))  # dob
+                data.append(query.value(5))  # phone
+                data.append(query.value(6))  # height
+                data.append(query.value(7))  # weight
+                data.append(query.value(8))  # bmi
+                data.append(query.value(9))  # epsworth
+                data.append(query.value(10))  # assessment
+                patients.append(data)
+        return patients
+
+
+class PatientDataModel(QAbstractTableModel):
+    def __init__(self, patients, header, parent=None):
+        QAbstractTableModel.__init__(self, parent)
+        self.patients = patients
+        self.header = header
+
+    def rowCount(self, parent):
+        return len(self.patients)
+
+    def columnCount(self, parent):
+        return len(self.patients[0])
+
+    def data(self, index, role):
+        if not index.isValid():
+            return None
+        elif role != Qt.DisplayRole:
+            return None
+        return self.patients[index.row()][index.column()]
+
+    def headerData(self, col, orientation, role):
+        if orientation == Qt.Horizontal and role == Qt.DisplayRole:
+            return self.header[col]
+        return None
+
+    def sort(self, col, order):
+        """sort table by given column number col"""
+        self.emit(SIGNAL("layoutAboutToBeChanged()"))
+        self.patients = sorted(self.patients,
+            key=operator.itemgetter(col))
+        if order == Qt.DescendingOrder:
+            self.patients.reverse()
+        self.emit(SIGNAL("layoutChanged()"))
+
+
+# TESTING
+if __name__ == '__main__':
+    import db_init
+
+    db_init.DatabaseInit()
+    patients = PatientData()
+    data = patients.returnAll()
+    for row in data:
+        print(str(row))

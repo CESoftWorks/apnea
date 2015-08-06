@@ -73,7 +73,7 @@ class DatabaseInit():
 
     def create_appointments(self):
         query = QSqlQuery()
-        query.exec_("""CREATE TABLE IF NOT EXISTS appointments(
+        query.exec_("""CREATE TABLE IF NOT EXISTS appointments (
                     id INTEGER PRIMARY KEY,
                     regdate DATE,
                     refdoctor VARCHAR(40),
