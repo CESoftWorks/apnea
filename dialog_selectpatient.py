@@ -19,10 +19,11 @@ Copyright (C) 2015 Constantinos Eleftheriou
     along with Apnea.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PySide.QtGui import QDialog, QMessageBox
+from PySide.QtGui import QDialog, QAbstractItemView
 from PySide.QtCore import *
 import uidlg_selectpatient
 from db_data import PatientData
+from newpatient import NewPatientForm
 
 
 class DialogSelectPatient(QDialog, uidlg_selectpatient.Ui_Dialog):
@@ -31,20 +32,40 @@ class DialogSelectPatient(QDialog, uidlg_selectpatient.Ui_Dialog):
         super(DialogSelectPatient, self).__init__(parent)
         self.setupUi(self)
         self.uiConnect()
-        self.loadPatients()
+        self.loadAllPatients()
+        self.selectedPatientId = None
 
     def uiConnect(self):
         self.buttonAddNewPatient.clicked.connect(self.buttonAddNewPatientClicked)
         self.buttonSelectPatient.clicked.connect(self.buttonSelectPatientClicked)
-
+        self.tablePatients.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tablePatients.setSelectionMode(QAbstractItemView.SingleSelection)
+        #self.buttonSelectPatient.setEnabled(False)
 
     def buttonAddNewPatientClicked(self):
-        return
+        newpatientform = NewPatientForm()
+        newpatientform.show()
+        newpatientform.exec_()
+        self.loadAllPatients()
 
     def buttonSelectPatientClicked(self):
-        return
+        index = self.tablePatients.selectionModel().currentIndex()
+        row = index.row()
+        self.selectedPatientId = index.sibling(row, 0).data()
+        self.close()
 
-    def loadPatients(self):
+    def selectedPatient(self):
+        return self.selectedPatientId
+
+    def loadAllPatients(self):
         patients = PatientData().returnAll()
         self.tablePatients.setModel(patients)
-        return
+
+    @staticmethod
+    def getSelectedPatient(parent=None):
+        """This function initializes the form and returns the
+        selected patient id"""
+        dialog = DialogSelectPatient(parent)
+        result = dialog.exec_()
+        patientid = dialog.selectedPatientId
+        return patientid, result == dialog.Accepted

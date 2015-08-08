@@ -19,6 +19,7 @@ Copyright (C) 2015 Constantinos Eleftheriou
     along with Apnea.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import operator
 from PySide.QtSql import QSqlQuery, QSqlDatabase
 from PySide.QtCore import *
 
@@ -27,7 +28,7 @@ from PySide.QtCore import *
 # All functions return True if successful or False if errors occurred
 
 
-class PatientData():
+class PatientData:
 
     def __init__(self):
         super(PatientData, self).__init__()

@@ -24,7 +24,7 @@ from PySide.QtGui import QMessageBox
 import sys
 
 
-class DatabaseInit():
+class DatabaseInit:
     # Print statements are for debug output
     def __init__(self):
         self.filename = 'apneadb.sqlite'  # TODO Make editable in settings?

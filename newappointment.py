@@ -42,10 +42,8 @@ class NewAppointmentForm(QDialog, ui_newappointment.Ui_Dialog):
         self.dateEdit.setCalendarPopup(True)
 
     def buttonPatientSelectClicked(self):
-        selectpatientdialog = DialogSelectPatient(self)
-        selectpatientdialog.show()
-        selectpatientdialog.exec_()
-        return
+        selectedpatient, result = DialogSelectPatient.getSelectedPatient()
+        self.labelPatientID.setText(str(selectedpatient))
 
     def buttonAssignDateClicked(self):
         return
