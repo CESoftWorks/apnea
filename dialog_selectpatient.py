@@ -33,13 +33,14 @@ class DialogSelectPatient(QDialog, uidlg_selectpatient.Ui_Dialog):
         self.uiConnect()
         self.loadAllPatients()
         self.selectedPatientId = None
+        self.buttonSearch.setDefault(True)
 
     def uiConnect(self):
         self.buttonAddNewPatient.clicked.connect(self.buttonAddNewPatientClicked)
         self.buttonSelectPatient.clicked.connect(self.buttonSelectPatientClicked)
+        self.buttonSearch.clicked.connect(self.search)
         self.tablePatients.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tablePatients.setSelectionMode(QAbstractItemView.SingleSelection)
-        #self.buttonSelectPatient.setEnabled(False)
 
     def buttonAddNewPatientClicked(self):
         newpatientform = NewPatientForm()
@@ -56,6 +57,11 @@ class DialogSelectPatient(QDialog, uidlg_selectpatient.Ui_Dialog):
     def loadAllPatients(self):
         patients = PatientData().returnAll()
         self.tablePatients.setModel(patients)
+
+    def search(self):
+        data = PatientData()
+        results = data.returnSearch(self.txtSearch.text())
+        self.tablePatients.setModel(results)
 
     @staticmethod
     def getSelectedPatient(parent=None):

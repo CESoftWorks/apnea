@@ -20,7 +20,7 @@ Copyright (C) 2015 Constantinos Eleftheriou
 """
 
 import operator
-from PySide.QtSql import QSqlQuery, QSqlDatabase
+from PySide.QtSql import QSqlQuery
 from PySide.QtCore import *
 
 # The following classes assume that connection to the database
@@ -41,10 +41,32 @@ class PatientData:
         model = PatientDataModel(data, self.headers)
         return model
 
+    def returnSearch(self, criteria):
+        data = self._returnSearch(criteria)
+        model = PatientDataModel(data, self.headers)
+        return model
+
     def _returnAll(self):
         query = QSqlQuery()
         query.exec_("SELECT * FROM patients ORDER BY patientid ASC")
-        patients = []
+        print(query.lastError().text())  # Print in debug-like form if there is an error
+        patients = self._parseQueryData(query)
+        return patients
+
+    def _returnSearch(self, criteria):
+        query = QSqlQuery()
+        # INSRT function doesn't work for some reason
+        query.exec_("SELECT * "
+                    "FROM patients "
+                    "WHERE patientid LIKE '%{}%' ".format(criteria) +
+                    "OR name LIKE '%{}%' ".format(criteria) +
+                    "OR surname LIKE '%{}%'".format(criteria))
+        print(query.lastError().text())
+        results = self._parseQueryData(query)
+        return results
+
+    def _parseQueryData(self, query):
+        parsed_data = []
         if query:
             while query.next():
                 data = []  # Hold individual patient data
@@ -59,8 +81,8 @@ class PatientData:
                 data.append(query.value(8))  # bmi
                 data.append(query.value(9))  # epsworth
                 data.append(query.value(10))  # assessment
-                patients.append(data)
-        return patients
+                parsed_data.append(data)
+        return parsed_data
 
 
 class PatientDataModel(QAbstractTableModel):
@@ -73,7 +95,7 @@ class PatientDataModel(QAbstractTableModel):
         return len(self.patients)
 
     def columnCount(self, parent):
-        return len(self.patients[0])
+        return len(self.header[0])
 
     def data(self, index, role):
         if not index.isValid():
@@ -88,7 +110,7 @@ class PatientDataModel(QAbstractTableModel):
         return None
 
     def sort(self, col, order):
-        """sort table by given column number col"""
+        """sort table by given column number"""
         self.emit(SIGNAL("layoutAboutToBeChanged()"))
         self.patients = sorted(self.patients,
             key=operator.itemgetter(col))
