@@ -50,7 +50,7 @@ class NewAppointmentForm(QDialog, ui_newappointment.Ui_Dialog):
     def buttonAssignDateClicked(self):
         # Check if patient was selected / default label value was changed
         patientid = self.labelPatientID.text()
-        if patientid == "" or patientid == "Please select a patient":
+        if patientid == "" or patientid == "Please select a patient" or patientid == "None":
             QMessageBox.warning(self, "Warning", "No patient selected!")
             return
         # Disable button to disallow dialog duplication
@@ -62,9 +62,28 @@ class NewAppointmentForm(QDialog, ui_newappointment.Ui_Dialog):
             self.buttonBookWithoutDate.setEnabled(False)
             # Chance cancel button to Book and Close button
             self.buttonCancel.setText("Book && Close")
+            return
+        # If no date was set, turn the button back on
+        self.buttonAssignDate.setEnabled(True)
 
     def buttonBookWithoutDateClicked(self):
-        return
+        patient = self.labelPatientID.text()
+        if patient == "" or patient == "Please select a patient" or patient == "None":
+            QMessageBox.warning(self, "Warning", "No patient selected!")
+            return
+        ok = QMessageBox.question(self, "No date set",
+                                  "Are you sure you want to book an appointment with no test date?"
+                                  "\nPlease note that you can set a test date at a later stage.",
+                                  QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+        if ok == QMessageBox.No:
+            # Give 'em another chance
+            return
+        success, error = self.insertAppointment()
+        if success:
+            QMessageBox.information(self, "Success", "New appointment booked with no test date!")
+            self.close()
+        else:
+            QMessageBox.warning(self, "Error", "Could not add new appointment! Error: {}".format(error))
 
     def buttonProceedClicked(self):
         return
@@ -74,7 +93,7 @@ class NewAppointmentForm(QDialog, ui_newappointment.Ui_Dialog):
             # If an appointment date has been selected, this is now Book and Close button
             success, error = self.insertAppointment()
             if success:
-                QMessageBox.information(self, "Success", "New appointment booked")
+                QMessageBox.information(self, "Success", "New appointment booked!")
                 self.close()
                 return
             QMessageBox.warning(self, "Error", "Could not add new appointment! Error: {}".format(error))
