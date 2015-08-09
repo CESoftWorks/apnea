@@ -71,13 +71,13 @@ class NewPatientForm(QDialog,
             self.clearFields()  # Clear all fields
 
     def btnSaveAddNewClicked(self):
-        q_status, q_error = self.insertPatient()
-        if q_status:
+        success, error = self.insertPatient()
+        if success:
             QMessageBox.information(self, "Success", "New patient record added successfully")
             self.clearFields()
         else:
             QMessageBox.warning(self, "Failure", "Could not add new patient! Error: {}".format(
-                q_error))
+                error))
             self.clearFields()
 
     def insertPatient(self):

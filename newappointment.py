@@ -24,32 +24,83 @@ from PySide.QtCore import QDate
 from db_queries import AppointmentQueries
 import ui_newappointment
 from dialog_selectpatient import DialogSelectPatient
+from dialog_appointmentdatesassign import DialogSelectAppointmentDate
 
 
 class NewAppointmentForm(QDialog, ui_newappointment.Ui_Dialog):
-
     def __init__(self, parent=None):
         super(NewAppointmentForm, self).__init__(parent)
         self.setupUi(self)
         self.uiConnect()
+        self.appointment_date = None
 
     def uiConnect(self):
         self.buttonAssignDate.clicked.connect(self.buttonAssignDateClicked)
         self.buttonBookWithoutDate.clicked.connect(self.buttonBookWithoutDateClicked)
         self.buttonPatientSelect.clicked.connect(self.buttonPatientSelectClicked)
         self.buttonProceed.clicked.connect(self.buttonProceedClicked)
-        self.dateEdit.setDate(QDate.currentDate())
-        self.dateEdit.setCalendarPopup(True)
+        self.buttonCancel.clicked.connect(self.buttonCancelClicked)
+        self.dateEdit.setDate(QDate.currentDate())  # Default regdate to today's date
+        self.dateEdit.setCalendarPopup(True)  # That's useful, right?
 
     def buttonPatientSelectClicked(self):
         selectedpatient, result = DialogSelectPatient.getSelectedPatient()
         self.labelPatientID.setText(str(selectedpatient))
 
     def buttonAssignDateClicked(self):
-        return
+        # Check if patient was selected / default label value was changed
+        patientid = self.labelPatientID.text()
+        if patientid == "" or patientid == "Please select a patient":
+            QMessageBox.warning(self, "Warning", "No patient selected!")
+            return
+        # Disable button to disallow dialog duplication
+        self.buttonAssignDate.setEnabled(False)
+        self.appointment_date = DialogSelectAppointmentDate.getDate(patientid)
+        if self.appointment_date is not None:
+            self.label.setText("Appointment date: " + str(self.appointment_date))
+            # Disable book without date button
+            self.buttonBookWithoutDate.setEnabled(False)
+            # Chance cancel button to Book and Close button
+            self.buttonCancel.setText("Book && Close")
 
     def buttonBookWithoutDateClicked(self):
         return
 
     def buttonProceedClicked(self):
         return
+
+    def buttonCancelClicked(self):
+        if self.appointment_date is not None:
+            # If an appointment date has been selected, this is now Book and Close button
+            success, error = self.insertAppointment()
+            if success:
+                QMessageBox.information(self, "Success", "New appointment booked")
+                self.close()
+                return
+            QMessageBox.warning(self, "Error", "Could not add new appointment! Error: {}".format(error))
+            return
+        self.close()
+
+    def insertAppointment(self):
+        # Parse form data
+        testdate = self.appointment_date
+        patientid = int(self.labelPatientID.text())
+        regdate = self.dateEdit.text()
+        refdoctor = self.txtRefDoc.text()
+        # Set appointment priority
+        if self.cbxPriority.currentText() == "Urgent":
+            priority = 1
+        elif self.cbxPriority.currentText() == "Medium":
+            priority = 2
+        else:
+            priority = 3
+        notes = str(self.txtNotes.document().toPlainText())
+        # Connect to database and add appointment
+        db_appointments = AppointmentQueries()
+        q_status, q_error = db_appointments.insert(patientid=patientid,
+                                                   regdate=regdate,
+                                                   refdoctor=refdoctor,
+                                                   priority=priority,
+                                                   testdate=testdate,
+                                                   notes=notes)
+        return q_status, q_error

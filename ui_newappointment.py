@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'newappointment.ui'
 #
-# Created: Wed Aug  5 13:37:16 2015
+# Created: Sun Aug  9 00:07:28 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -35,6 +35,7 @@ class Ui_Dialog(object):
         self.labelPatientID.setSizePolicy(sizePolicy)
         self.labelPatientID.setFrameShape(QtGui.QFrame.Box)
         self.labelPatientID.setFrameShadow(QtGui.QFrame.Sunken)
+        self.labelPatientID.setTextFormat(QtCore.Qt.PlainText)
         self.labelPatientID.setObjectName("labelPatientID")
         self.horizontalLayout.addWidget(self.labelPatientID)
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -123,7 +124,7 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(QtGui.QApplication.translate("Dialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("Dialog", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">New Appointment</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("Dialog", "Patient ID:", None, QtGui.QApplication.UnicodeUTF8))
-        self.labelPatientID.setText(QtGui.QApplication.translate("Dialog", "<html><head/><body><p><span style=\" font-style:italic;\">Please select patient</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+        self.labelPatientID.setText(QtGui.QApplication.translate("Dialog", "Please select a patient", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonPatientSelect.setText(QtGui.QApplication.translate("Dialog", "Select Patient", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("Dialog", "Registration Date:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("Dialog", "Refferring Doctor:", None, QtGui.QApplication.UnicodeUTF8))

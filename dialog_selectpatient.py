@@ -20,7 +20,6 @@ Copyright (C) 2015 Constantinos Eleftheriou
 """
 
 from PySide.QtGui import QDialog, QAbstractItemView
-from PySide.QtCore import *
 import uidlg_selectpatient
 from db_data import PatientData
 from newpatient import NewPatientForm
@@ -53,9 +52,6 @@ class DialogSelectPatient(QDialog, uidlg_selectpatient.Ui_Dialog):
         row = index.row()
         self.selectedPatientId = index.sibling(row, 0).data()
         self.close()
-
-    def selectedPatient(self):
-        return self.selectedPatientId
 
     def loadAllPatients(self):
         patients = PatientData().returnAll()
