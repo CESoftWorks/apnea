@@ -25,9 +25,49 @@ import ui_appointmentview
 
 class AppointmentViewForm(QDialog, ui_appointmentview.Ui_Dialog):
 
-    def __init__(self, appointment_id, parent=None):
+    def __init__(self, appointment_id, patient_id, parent=None):
         super(AppointmentViewForm, self).__init__(parent)
         self.setupUi(self)
+        self.uiConnect()
+        self.fetch_appointment(appointment_id)
+        self.fetch_patient(patient_id)
 
     def uiConnect(self):
+        self.buttonAttachDocReport.clicked.connect(self.buttonAttachDocReportClicked)
+        self.buttonAttachPsgReport.clicked.connect(self.buttonAttachPsgReportClicked)
+        self.buttonEditPatient.clicked.connect(self.buttonEditPatientClicked)
+        self.buttonOpenPsgReport.clicked.connect(self.buttonOpenPsgReportClicked)
+        self.buttonOpenDocReport.clicked.connect(self.buttonOpenDocReportClicked)
+        self.buttonSave.clicked.connect(self.buttonSaveClicked)
+        self.buttonSaveAndAdd.clicked.connect(self.buttonSaveAndAddClicked)
+        self.buttonViewPreviousAppointments.clicked.connect(self.buttonViewPreviousAppointmentsClicked)
+
+    def buttonEditPatientClicked(self):
+        return
+
+    def buttonViewPreviousAppointmentsClicked(self):
+        return
+
+    def buttonSaveClicked(self):
+        return
+
+    def buttonSaveAndAddClicked(self):
+        return
+
+    def buttonAttachPsgReportClicked(self):
+        return
+
+    def buttonOpenPsgReportClicked(self):
+        return
+
+    def buttonAttachDocReportClicked(self):
+        return
+
+    def buttonOpenDocReportClicked(self):
+        return
+
+    def fetch_appointment(self, appointment_id):
+        return
+
+    def fetch_patient(self, patient_id):
         return

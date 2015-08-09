@@ -37,12 +37,12 @@ class PatientData:
 
     def returnAll(self):
         data = self._returnAll()
-        model = PatientDataModel(data, self.headers)
+        model = GenericDataModel(data, self.headers)
         return model
 
     def returnSearch(self, criteria):
         data = self._returnSearch(criteria)
-        model = PatientDataModel(data, self.headers)
+        model = GenericDataModel(data, self.headers)
         return model
 
     def _returnAll(self):
@@ -84,14 +84,14 @@ class PatientData:
         return parsed_data
 
 
-class PatientDataModel(QAbstractTableModel):
-    def __init__(self, patients, header, parent=None):
+class GenericDataModel(QAbstractTableModel):
+    def __init__(self, records, header, parent=None):
         QAbstractTableModel.__init__(self, parent)
-        self.patients = patients
+        self.records = records
         self.header = header
 
     def rowCount(self, parent):
-        return len(self.patients)
+        return len(self.records)
 
     def columnCount(self, parent):
         return len(self.header[0])
@@ -101,7 +101,7 @@ class PatientDataModel(QAbstractTableModel):
             return None
         elif role != Qt.DisplayRole:
             return None
-        return self.patients[index.row()][index.column()]
+        return self.records[index.row()][index.column()]
 
     def headerData(self, col, orientation, role):
         if orientation == Qt.Horizontal and role == Qt.DisplayRole:
@@ -111,10 +111,10 @@ class PatientDataModel(QAbstractTableModel):
     def sort(self, col, order):
         """sort table by given column number"""
         self.emit(SIGNAL("layoutAboutToBeChanged()"))
-        self.patients = sorted(self.patients,
+        self.records = sorted(self.records,
             key=operator.itemgetter(col))
         if order == Qt.DescendingOrder:
-            self.patients.reverse()
+            self.records.reverse()
         self.emit(SIGNAL("layoutChanged()"))
 
 

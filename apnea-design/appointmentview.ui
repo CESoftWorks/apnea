@@ -459,7 +459,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="buttonShowDocReport">
+                  <widget class="QPushButton" name="buttonOpenDocReport">
                    <property name="text">
                     <string>Show Report</string>
                    </property>

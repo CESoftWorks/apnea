@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'appointmentview.ui'
 #
-# Created: Sun Aug  9 21:27:17 2015
+# Created: Sun Aug  9 22:13:58 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -239,9 +239,9 @@ class Ui_Dialog(object):
         self.buttonAttachDocReport = QtGui.QPushButton(Dialog)
         self.buttonAttachDocReport.setObjectName("buttonAttachDocReport")
         self.horizontalLayout_5.addWidget(self.buttonAttachDocReport)
-        self.buttonShowDocReport = QtGui.QPushButton(Dialog)
-        self.buttonShowDocReport.setObjectName("buttonShowDocReport")
-        self.horizontalLayout_5.addWidget(self.buttonShowDocReport)
+        self.buttonOpenDocReport = QtGui.QPushButton(Dialog)
+        self.buttonOpenDocReport.setObjectName("buttonOpenDocReport")
+        self.horizontalLayout_5.addWidget(self.buttonOpenDocReport)
         self.verticalLayout_3.addLayout(self.horizontalLayout_5)
         self.verticalLayout_5.addLayout(self.verticalLayout_3)
         self.horizontalLayout_6.addLayout(self.verticalLayout_5)
@@ -323,7 +323,7 @@ class Ui_Dialog(object):
         self.buttonOpenPsgReport.setText(QtGui.QApplication.translate("Dialog", "Show Report", None, QtGui.QApplication.UnicodeUTF8))
         self.lblDocReport.setText(QtGui.QApplication.translate("Dialog", "Doctor\'s Report", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonAttachDocReport.setText(QtGui.QApplication.translate("Dialog", "Attach Report", None, QtGui.QApplication.UnicodeUTF8))
-        self.buttonShowDocReport.setText(QtGui.QApplication.translate("Dialog", "Show Report", None, QtGui.QApplication.UnicodeUTF8))
+        self.buttonOpenDocReport.setText(QtGui.QApplication.translate("Dialog", "Show Report", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonEditPatient.setText(QtGui.QApplication.translate("Dialog", "Edit Patient Details", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonViewPreviousAppointments.setText(QtGui.QApplication.translate("Dialog", "View Previous Appointments", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonSave.setText(QtGui.QApplication.translate("Dialog", "Save Appointment Changes", None, QtGui.QApplication.UnicodeUTF8))

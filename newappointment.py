@@ -98,7 +98,7 @@ class NewAppointmentForm(QDialog, ui_newappointment.Ui_Dialog):
             QMessageBox.warning(self, "Error", "Could not add new appointment! Error: {}".format(error))
             return  # No point going any further if appointment was not added
         # Onwards
-        proceed_form = AppointmentViewForm(last_id)
+        proceed_form = AppointmentViewForm(last_id, patient)
         proceed_form.show()
         proceed_form.exec_()
         self.close()
