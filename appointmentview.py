@@ -28,3 +28,6 @@ class AppointmentViewForm(QDialog, ui_appointmentview.Ui_Dialog):
     def __init__(self, appointment_id, parent=None):
         super(AppointmentViewForm, self).__init__(parent)
         self.setupUi(self)
+
+    def uiConnect(self):
+        return

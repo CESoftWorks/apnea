@@ -147,10 +147,12 @@ class AppointmentQueries():
         if not query.isActive():
             print('Error: Could not add new appointment record!')
             print(query.lastError().text())
-            return False, query.lastError().text()
+            return False, query.lastError().text(), None, None
 
-        print('New appointment added successfully')
-        return True, None
+        # Get ID of record that was just added
+        last_id = query.lastInsertId()
+        print('New appointment added successfully with id ' + str(last_id))
+        return True, None, last_id
 
     def delete(self, appointmentid):
         query = QSqlQuery()

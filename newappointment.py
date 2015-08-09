@@ -79,7 +79,7 @@ class NewAppointmentForm(QDialog, ui_newappointment.Ui_Dialog):
         if ok == QMessageBox.No:
             # Give 'em another chance
             return
-        success, error = self.insertAppointment()
+        success, error, last_id = self.insertAppointment()
         if success:
             QMessageBox.information(self, "Success", "New appointment booked with no test date!")
             self.close()
@@ -87,7 +87,18 @@ class NewAppointmentForm(QDialog, ui_newappointment.Ui_Dialog):
             QMessageBox.warning(self, "Error", "Could not add new appointment! Error: {}".format(error))
 
     def buttonProceedClicked(self):
-        proceed_form = AppointmentViewForm(1)  # TODO Capture from form
+        patient = self.labelPatientID.text()
+        # Obligatory no-patient check
+        if patient == "" or patient == "Please select a patient" or patient == "None":
+            QMessageBox.warning(self, "Warning", "No patient selected!")
+            return
+        # Add new appointment
+        success, error, last_id = self.insertAppointment()
+        if not success:
+            QMessageBox.warning(self, "Error", "Could not add new appointment! Error: {}".format(error))
+            return  # No point going any further if appointment was not added
+        # Onwards
+        proceed_form = AppointmentViewForm(last_id)
         proceed_form.show()
         proceed_form.exec_()
         self.close()
@@ -95,7 +106,7 @@ class NewAppointmentForm(QDialog, ui_newappointment.Ui_Dialog):
     def buttonCancelClicked(self):
         if self.appointment_date is not None:
             # If an appointment date has been selected, this is now Book and Close button
-            success, error = self.insertAppointment()
+            success, error, last_id = self.insertAppointment()
             if success:
                 QMessageBox.information(self, "Success", "New appointment booked!")
                 self.close()
@@ -120,10 +131,10 @@ class NewAppointmentForm(QDialog, ui_newappointment.Ui_Dialog):
         notes = str(self.txtNotes.document().toPlainText())
         # Connect to database and add appointment
         db_appointments = AppointmentQueries()
-        q_status, q_error = db_appointments.insert(patientid=patientid,
+        q_status, q_error, q_lastid = db_appointments.insert(patientid=patientid,
                                                    regdate=regdate,
                                                    refdoctor=refdoctor,
                                                    priority=priority,
                                                    testdate=testdate,
                                                    notes=notes)
-        return q_status, q_error
+        return q_status, q_error, q_lastid

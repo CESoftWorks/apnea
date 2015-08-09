@@ -25,7 +25,6 @@ from PySide.QtCore import *
 
 # The following classes assume that connection to the database
 # has already been established.
-# All functions return True if successful or False if errors occurred
 
 
 class PatientData:
