@@ -25,6 +25,7 @@ from db_queries import AppointmentQueries
 import ui_newappointment
 from dialog_selectpatient import DialogSelectPatient
 from dialog_appointmentdatesassign import DialogSelectAppointmentDate
+from appointmentview import AppointmentViewForm
 
 
 class NewAppointmentForm(QDialog, ui_newappointment.Ui_Dialog):
@@ -86,7 +87,10 @@ class NewAppointmentForm(QDialog, ui_newappointment.Ui_Dialog):
             QMessageBox.warning(self, "Error", "Could not add new appointment! Error: {}".format(error))
 
     def buttonProceedClicked(self):
-        return
+        proceed_form = AppointmentViewForm(1)  # TODO Capture from form
+        proceed_form.show()
+        proceed_form.exec_()
+        self.close()
 
     def buttonCancelClicked(self):
         if self.appointment_date is not None:
