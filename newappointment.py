@@ -26,6 +26,7 @@ import ui_newappointment
 from dialog_selectpatient import DialogSelectPatient
 from dialog_appointmentdatesassign import DialogSelectAppointmentDate
 from appointmentview import AppointmentViewForm
+import datetime
 
 
 class NewAppointmentForm(QDialog, ui_newappointment.Ui_Dialog):
@@ -92,6 +93,9 @@ class NewAppointmentForm(QDialog, ui_newappointment.Ui_Dialog):
         if patient == "" or patient == "Please select a patient" or patient == "None":
             QMessageBox.warning(self, "Warning", "No patient selected!")
             return
+        # If no date was set, default to today
+        if self.appointment_date is None:
+            self.appointment_date = datetime.date.today().strftime("%d/%m%y")
         # Add new appointment
         success, error, last_id = self.insertAppointment()
         if not success:
