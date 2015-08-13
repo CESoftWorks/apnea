@@ -95,7 +95,7 @@ class NewAppointmentForm(QDialog, ui_newappointment.Ui_Dialog):
             return
         # If no date was set, default to today
         if self.appointment_date is None:
-            self.appointment_date = datetime.date.today().strftime("%d/%m%y")
+            self.appointment_date = datetime.date.today().strftime("%d/%m/%y")
         # Add new appointment
         success, error, last_id = self.insertAppointment()
         if not success:

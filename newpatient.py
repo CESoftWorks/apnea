@@ -41,8 +41,11 @@ class NewPatientForm(QDialog,
         self.btnSave.clicked.connect(self.btnSaveClicked)
         self.btnSaveAddNew.clicked.\
             connect(self.btnSaveAddNewClicked)
+        self.spnWeight.setMinimum(0)
+        self.spnHeight.setMinimum(0)
         self.spnHeight.setMaximum(220)
         self.spnWeight.setMaximum(300)
+        self.spnWeight.setDecimals(0)
 
     def btnCalculateBmiClicked(self):
         # Calculate BMI using weight and height data

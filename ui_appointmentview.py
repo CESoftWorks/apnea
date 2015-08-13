@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'appointmentview.ui'
 #
-# Created: Sun Aug  9 22:13:58 2015
+# Created: Mon Aug 10 11:26:21 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -214,6 +214,12 @@ class Ui_Dialog(object):
         self.txtAppointmentAhi.setObjectName("txtAppointmentAhi")
         self.horizontalLayout_3.addWidget(self.txtAppointmentAhi)
         self.verticalLayout_5.addLayout(self.horizontalLayout_3)
+        self.label_20 = QtGui.QLabel(Dialog)
+        self.label_20.setObjectName("label_20")
+        self.verticalLayout_5.addWidget(self.label_20)
+        self.txtAppointmentTreatment = QtGui.QPlainTextEdit(Dialog)
+        self.txtAppointmentTreatment.setObjectName("txtAppointmentTreatment")
+        self.verticalLayout_5.addWidget(self.txtAppointmentTreatment)
         self.verticalLayout_4 = QtGui.QVBoxLayout()
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.lblPsgReport = QtGui.QLabel(Dialog)
@@ -263,17 +269,21 @@ class Ui_Dialog(object):
         self.buttonViewPreviousAppointments = QtGui.QPushButton(Dialog)
         self.buttonViewPreviousAppointments.setObjectName("buttonViewPreviousAppointments")
         self.verticalLayout_8.addWidget(self.buttonViewPreviousAppointments)
+        spacerItem2 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout_8.addItem(spacerItem2)
         self.buttonSave = QtGui.QPushButton(Dialog)
         self.buttonSave.setObjectName("buttonSave")
         self.verticalLayout_8.addWidget(self.buttonSave)
         self.buttonSaveAndAdd = QtGui.QPushButton(Dialog)
         self.buttonSaveAndAdd.setObjectName("buttonSaveAndAdd")
         self.verticalLayout_8.addWidget(self.buttonSaveAndAdd)
+        spacerItem3 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout_8.addItem(spacerItem3)
         self.buttonCancel = QtGui.QPushButton(Dialog)
         self.buttonCancel.setObjectName("buttonCancel")
         self.verticalLayout_8.addWidget(self.buttonCancel)
-        spacerItem2 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.verticalLayout_8.addItem(spacerItem2)
+        spacerItem4 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout_8.addItem(spacerItem4)
         self.horizontalLayout_19.addLayout(self.verticalLayout_8)
         self.horizontalLayout_20.addLayout(self.horizontalLayout_19)
         self.label_3.setBuddy(self.txtPatientId)
@@ -318,6 +328,7 @@ class Ui_Dialog(object):
         self.label_17.setText(QtGui.QApplication.translate("Dialog", "Diagnosis:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_19.setText(QtGui.QApplication.translate("Dialog", "Notes:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_18.setText(QtGui.QApplication.translate("Dialog", "AHI:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_20.setText(QtGui.QApplication.translate("Dialog", "Treatment:", None, QtGui.QApplication.UnicodeUTF8))
         self.lblPsgReport.setText(QtGui.QApplication.translate("Dialog", "PSG Report", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonAttachPsgReport.setText(QtGui.QApplication.translate("Dialog", "Attach Report", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonOpenPsgReport.setText(QtGui.QApplication.translate("Dialog", "Show Report", None, QtGui.QApplication.UnicodeUTF8))

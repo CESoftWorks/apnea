@@ -23,14 +23,13 @@ import operator
 from PySide.QtSql import QSqlQuery
 from PySide.QtCore import *
 
+
 # The following classes assume that connection to the database
 # has already been established.
 
 
 class PatientData:
-
     def __init__(self):
-        super(PatientData, self).__init__()
         self.headers = ['Patient ID', 'Name', 'Surname', 'Sex', 'Date of Birth',
                         'Phone', 'Height', 'Weight', 'BMI', 'Epsworth Score',
                         'Brief Assessment']
@@ -45,11 +44,28 @@ class PatientData:
         model = GenericDataModel(data, self.headers)
         return model
 
+    def returnSingleById(self, patientid):
+        query = QSqlQuery()
+        query.exec_("SELECT * "
+                    "FROM patients "
+                    "WHERE patientid = '{}'".format(patientid))
+
+        if not query.isActive():
+            print(query.lastError().text())
+            return None
+
+        record = self._parseToDict(query)
+        return record
+
     def _returnAll(self):
         query = QSqlQuery()
         query.exec_("SELECT * FROM patients ORDER BY patientid ASC")
-        print(query.lastError().text())  # Print in debug-like form if there is an error
-        patients = self._parseQueryData(query)
+
+        if not query.isActive():
+            print(query.lastError().text())  # Print in debug-like form if there is an error
+            return None
+
+        patients = self._parseToList(query)
         return patients
 
     def _returnSearch(self, criteria):
@@ -60,11 +76,15 @@ class PatientData:
                     "WHERE patientid LIKE '%{}%' ".format(criteria) +
                     "OR name LIKE '%{}%' ".format(criteria) +
                     "OR surname LIKE '%{}%'".format(criteria))
-        print(query.lastError().text())
-        results = self._parseQueryData(query)
+
+        if not query.isActive():
+            print(query.lastError().text())
+            return None
+
+        results = self._parseToList(query)
         return results
 
-    def _parseQueryData(self, query):
+    def _parseToList(self, query):
         parsed_data = []
         if query:
             while query.next():
@@ -82,6 +102,69 @@ class PatientData:
                 data.append(query.value(10))  # assessment
                 parsed_data.append(data)
         return parsed_data
+
+    def _parseToDict(self, query):
+        parsed_dict = dict.fromkeys(['patientid', 'name', 'surname', 'sex', 'dob',
+                                     'phone', 'height', 'weight', 'bmi', 'epsworth',
+                                     'assessment'])
+
+        if query:
+            while query.next():
+                parsed_dict['patientid'] = query.value(0)
+                parsed_dict['name'] = query.value(1)
+                parsed_dict['surname'] = query.value(2)
+                parsed_dict['sex'] = query.value(3)
+                parsed_dict['dob'] = query.value(4)
+                parsed_dict['phone'] = query.value(5)
+                parsed_dict['height'] = query.value(6)
+                parsed_dict['weight'] = query.value(7)
+                parsed_dict['bmi'] = query.value(8)
+                parsed_dict['epsworth'] = query.value(9)
+                parsed_dict['assessment'] = query.value(10)
+
+        return parsed_dict
+
+
+class AppointmentData():
+    def __init__(self):
+        self.headers = ['ID', 'Registration Date', 'Referring Doctor', 'Priority',
+                        'Test Date', 'Diagnosis', 'AHI', 'Treatment', 'PSGRpath',
+                        'DocRpath', 'Notes', 'Patient ID']
+
+    def returnSingleById(self, appointmentid):
+        record = self._returnSingleById(appointmentid)
+        return record
+
+    def _returnSingleById(self, app_id):
+        query = QSqlQuery()
+        query.exec_("SELECT * "
+                    "FROM appointments "
+                    "WHERE id = '{}'".format(app_id))
+        if not query.isActive():
+            print(query.lastError().text())
+            return None
+        parsed_dict = self._parseToDict(query)
+        return parsed_dict
+
+    def _parseToDict(self, query):
+        parsed_dict = dict.fromkeys(['id', 'regdate', 'refdoc', 'priority', 'testdate',
+                                     'diagnosis', 'ahi', 'treatment', 'psgreport',
+                                     'doctorreport', 'notes', 'patientid'])
+        if query:
+            while query.next():
+                parsed_dict['id'] = query.value(0)
+                parsed_dict['regdate'] = query.value(1)
+                parsed_dict['refdoc'] = query.value(2)
+                parsed_dict['priority'] = query.value(3)
+                parsed_dict['testdate'] = query.value(4)
+                parsed_dict['diagnosis'] = query.value(5)
+                parsed_dict['ahi'] = query.value(6)
+                parsed_dict['treatment'] = query.value(7)
+                parsed_dict['psgreport'] = query.value(8)
+                parsed_dict['doctorreport'] = query.value(9)
+                parsed_dict['notes'] = query.value(10)
+                parsed_dict['patientid'] = query.value(11)
+        return parsed_dict
 
 
 class GenericDataModel(QAbstractTableModel):
@@ -112,7 +195,7 @@ class GenericDataModel(QAbstractTableModel):
         """sort table by given column number"""
         self.emit(SIGNAL("layoutAboutToBeChanged()"))
         self.records = sorted(self.records,
-            key=operator.itemgetter(col))
+                              key=operator.itemgetter(col))
         if order == Qt.DescendingOrder:
             self.records.reverse()
         self.emit(SIGNAL("layoutChanged()"))

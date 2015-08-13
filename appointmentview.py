@@ -21,6 +21,8 @@ Copyright (C) 2015 Constantinos Eleftheriou
 
 from PySide.QtGui import QDialog, QMessageBox
 import ui_appointmentview
+from db_data import AppointmentData, PatientData
+from editpatient import EditPatientForm
 
 
 class AppointmentViewForm(QDialog, ui_appointmentview.Ui_Dialog):
@@ -41,9 +43,15 @@ class AppointmentViewForm(QDialog, ui_appointmentview.Ui_Dialog):
         self.buttonSave.clicked.connect(self.buttonSaveClicked)
         self.buttonSaveAndAdd.clicked.connect(self.buttonSaveAndAddClicked)
         self.buttonViewPreviousAppointments.clicked.connect(self.buttonViewPreviousAppointmentsClicked)
+        self.buttonAttachDocReport.setEnabled(False)
+        self.buttonOpenDocReport.setEnabled(False)
+        self.buttonAttachPsgReport.setEnabled(False)
+        self.buttonOpenPsgReport.setEnabled(False)
 
     def buttonEditPatientClicked(self):
-        return
+        edit_patient = EditPatientForm(self.txtPatientId.text())
+        edit_patient.show()
+        edit_patient.exec_()
 
     def buttonViewPreviousAppointmentsClicked(self):
         return
@@ -67,7 +75,26 @@ class AppointmentViewForm(QDialog, ui_appointmentview.Ui_Dialog):
         return
 
     def fetch_appointment(self, appointment_id):
-        return
+        app_data = AppointmentData()
+        app_record = app_data.returnSingleById(appointment_id)
+        self.txtAppointmentDate.setText(app_record['testdate'])
+        self.txtAppointmentRegDate.setText(app_record['regdate'])
+        self.txtAppointmentAhi.setText(str(app_record['ahi']))
+        self.txtAppointmentDiagnosis.setPlainText(app_record['diagnosis'])
+        self.txtAppointmentTreatment.setPlainText(app_record['treatment'])
+        self.txtAppointmentNotes.setPlainText(app_record['notes'])
 
     def fetch_patient(self, patient_id):
-        return
+        patient_data = PatientData()
+        patient_record = patient_data.returnSingleById(patient_id)
+        self.txtPatientId.setText(str(patient_record['patientid']))
+        self.txtPatientName.setText(patient_record['name'])
+        self.txtPatientSurname.setText(patient_record['surname'])
+        self.txtPatientDob.setText(patient_record['dob'])
+        self.txtPatientSex.setText(patient_record['sex'])
+        self.txtPatientPhone.setText(patient_record['phone'])
+        self.txtPatientHeight.setText(str(patient_record['height']))
+        self.txtPatientWeight.setText(str(patient_record['weight']))
+        self.txtPatientBmi.setText(str(patient_record['bmi']))
+        self.txtPatientEpsworth.setText(str(patient_record['epsworth']))
+        self.txtPatientAssessment.setPlainText(patient_record['assessment'])
