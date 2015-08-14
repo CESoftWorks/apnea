@@ -23,6 +23,7 @@ from decimal import Decimal
 from PySide.QtGui import QDialog, QMessageBox
 from PySide.QtCore import QDate
 from db_data import PatientData
+from db_queries import PatientQueries
 import ui_editpatient
 
 
@@ -44,13 +45,27 @@ class EditPatientForm(QDialog, ui_editpatient.Ui_Dialog):
         self.spnWeight.setDecimals(0)
 
     def btnSaveClicked(self):
-        return
+        q_status, q_error = self.update_patient()
+        if q_status:
+            QMessageBox.information(self, "Success", "Patient record updated successfully")
+            self.close()
+        else:
+            QMessageBox.warning(self, "Failure", "Could not update patient record! Error: {}".format(
+                q_error))
 
     def btnCalculateBmiClicked(self):
-        return
+        weight = Decimal(self.spnWeight.value())
+        height = Decimal(self.spnHeight.value()) / 100
+        # Return 0 if weight or height is 0
+        if weight == 0 or height == 0:
+            self.txtBmi.setText("0")
+            return
+        bmi = weight / (height * height)
+        self.txtBmi.setText(str(round(bmi, 2)))
 
     def btnResetClicked(self):
-        return
+        # Set original values
+        self.fetch_patient(self.patientid)
 
     def fetch_patient(self, patient_id):
         patient_data = PatientData()
@@ -66,6 +81,27 @@ class EditPatientForm(QDialog, ui_editpatient.Ui_Dialog):
         self.txtBmi.setText(str(patient_record['bmi']))
         self.spnEpsworth.setValue(int(patient_record['epsworth']))
         self.txtBriefAssessment.setPlainText(patient_record['assessment'])
+
+    def update_patient(self):
+        patient_record = PatientQueries()
+
+        pid = self.patientid
+        name = self.txtName.text()
+        surname = self.txtSurname.text()
+        sex = self.cbxSex.currentText()
+        dob = self.dateDob.text()
+        phone = self.txtPhone.text()
+        height = self.spnHeight.text()
+        weight = self.spnWeight.text()
+        bmi = self.txtBmi.text()
+        epsworth = self.spnEpsworth.text()
+        assessment = self.txtBriefAssessment.document().toPlainText()
+
+        q_status, q_error = patient_record.update(patientid=pid, u_name=name, u_surname=surname, u_sex=sex,
+                                                  u_dob=dob, u_phone=phone, u_height=height, u_weight=weight,
+                                                  u_bmi=bmi, u_epsworth=epsworth, u_assessment=assessment)
+
+        return q_status, q_error
 
 
 # TESTING

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'newpatient.ui'
 #
-# Created: Mon Jun 15 13:57:41 2015
+# Created: Fri Aug 14 14:02:02 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -74,6 +74,7 @@ class Ui_Dialog(object):
         self.cbxSex = QtGui.QComboBox(Dialog)
         self.cbxSex.setObjectName("cbxSex")
         self.cbxSex.addItem("")
+        self.cbxSex.setItemText(0, "")
         self.cbxSex.addItem("")
         self.cbxSex.addItem("")
         self.horizontalLayout_4.addWidget(self.cbxSex)
@@ -114,6 +115,7 @@ class Ui_Dialog(object):
         self.label_9.setObjectName("label_9")
         self.horizontalLayout_8.addWidget(self.label_9)
         self.spnWeight = QtGui.QDoubleSpinBox(Dialog)
+        self.spnWeight.setDecimals(0)
         self.spnWeight.setObjectName("spnWeight")
         self.horizontalLayout_8.addWidget(self.spnWeight)
         self.verticalLayout_3.addLayout(self.horizontalLayout_8)
@@ -207,7 +209,6 @@ class Ui_Dialog(object):
         self.label_3.setText(QtGui.QApplication.translate("Dialog", "Name:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("Dialog", "Surname:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_5.setText(QtGui.QApplication.translate("Dialog", "Sex:", None, QtGui.QApplication.UnicodeUTF8))
-        self.cbxSex.setItemText(0, QtGui.QApplication.translate("Dialog", " ", None, QtGui.QApplication.UnicodeUTF8))
         self.cbxSex.setItemText(1, QtGui.QApplication.translate("Dialog", "Male", None, QtGui.QApplication.UnicodeUTF8))
         self.cbxSex.setItemText(2, QtGui.QApplication.translate("Dialog", "Female", None, QtGui.QApplication.UnicodeUTF8))
         self.label_6.setText(QtGui.QApplication.translate("Dialog", "Date of Birth:", None, QtGui.QApplication.UnicodeUTF8))
