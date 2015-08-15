@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'appointmentview.ui'
 #
-# Created: Mon Aug 10 11:26:21 2015
+# Created: Sat Aug 15 21:06:34 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -274,16 +274,11 @@ class Ui_Dialog(object):
         self.buttonSave = QtGui.QPushButton(Dialog)
         self.buttonSave.setObjectName("buttonSave")
         self.verticalLayout_8.addWidget(self.buttonSave)
-        self.buttonSaveAndAdd = QtGui.QPushButton(Dialog)
-        self.buttonSaveAndAdd.setObjectName("buttonSaveAndAdd")
-        self.verticalLayout_8.addWidget(self.buttonSaveAndAdd)
-        spacerItem3 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.verticalLayout_8.addItem(spacerItem3)
         self.buttonCancel = QtGui.QPushButton(Dialog)
         self.buttonCancel.setObjectName("buttonCancel")
         self.verticalLayout_8.addWidget(self.buttonCancel)
-        spacerItem4 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.verticalLayout_8.addItem(spacerItem4)
+        spacerItem3 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout_8.addItem(spacerItem3)
         self.horizontalLayout_19.addLayout(self.verticalLayout_8)
         self.horizontalLayout_20.addLayout(self.horizontalLayout_19)
         self.label_3.setBuddy(self.txtPatientId)
@@ -338,6 +333,5 @@ class Ui_Dialog(object):
         self.buttonEditPatient.setText(QtGui.QApplication.translate("Dialog", "Edit Patient Details", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonViewPreviousAppointments.setText(QtGui.QApplication.translate("Dialog", "View Previous Appointments", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonSave.setText(QtGui.QApplication.translate("Dialog", "Save Appointment Changes", None, QtGui.QApplication.UnicodeUTF8))
-        self.buttonSaveAndAdd.setText(QtGui.QApplication.translate("Dialog", "Book Another Appointment", None, QtGui.QApplication.UnicodeUTF8))
         self.buttonCancel.setText(QtGui.QApplication.translate("Dialog", "Cancel", None, QtGui.QApplication.UnicodeUTF8))
 

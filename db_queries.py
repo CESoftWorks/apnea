@@ -120,7 +120,7 @@ class AppointmentQueries():
 
     def insert(self, patientid, regdate='00/00/0000', refdoctor='Unknown',
                priority=0, testdate='00/00/0000', diagnosis='No data', ahi=0,
-               treatment='No data', psgreport='N/A', doctorreport='N/A',
+               treatment='No data', psgreport='', doctorreport='',
                notes='No data'):
         query = QSqlQuery()
         query.prepare("INSERT INTO appointments (regdate, refdoctor, "

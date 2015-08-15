@@ -30,6 +30,7 @@ import datetime
 
 
 class NewAppointmentForm(QDialog, ui_newappointment.Ui_Dialog):
+
     def __init__(self, parent=None):
         super(NewAppointmentForm, self).__init__(parent)
         self.setupUi(self)
