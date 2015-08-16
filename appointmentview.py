@@ -19,11 +19,12 @@ Copyright (C) 2015 Constantinos Eleftheriou
     along with Apnea.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from PySide.QtGui import QDialog, QMessageBox
+from PySide.QtGui import QDialog, QMessageBox, QFileDialog
 import ui_appointmentview
 from db_data import AppointmentData, PatientData
 from editpatient import EditPatientForm
 from db_queries import AppointmentQueries
+import subprocess, os, sys
 
 
 class AppointmentViewForm(QDialog, ui_appointmentview.Ui_Dialog):
@@ -49,10 +50,6 @@ class AppointmentViewForm(QDialog, ui_appointmentview.Ui_Dialog):
         self.buttonOpenDocReport.clicked.connect(self.buttonOpenDocReportClicked)
         self.buttonSave.clicked.connect(self.buttonSaveClicked)
         self.buttonViewPreviousAppointments.clicked.connect(self.buttonViewPreviousAppointmentsClicked)
-        self.buttonAttachDocReport.setEnabled(False)
-        self.buttonOpenDocReport.setEnabled(False)
-        self.buttonAttachPsgReport.setEnabled(False)
-        self.buttonOpenPsgReport.setEnabled(False)
 
     def buttonEditPatientClicked(self):
         edit_patient = EditPatientForm(self.txtPatientId.text())
@@ -66,16 +63,37 @@ class AppointmentViewForm(QDialog, ui_appointmentview.Ui_Dialog):
         self.update_appointment()
 
     def buttonAttachPsgReportClicked(self):
-        return
+        self.psg_report = str(QFileDialog.getOpenFileName(self, "Select PSG Report")[0])
+        self.buttonOpenPsgReport.setEnabled(True)
 
     def buttonOpenPsgReportClicked(self):
-        return
+        if self.psg_report is not None or '':
+            filepath = self.psg_report
+            # Platform-specific commands for opening pdf with default application
+            if sys.platform.startswith('darwin'):
+                subprocess.call(('open', filepath))
+            elif os.name == 'nt':
+                os.startfile(filepath)
+            elif os.name == 'posix':
+                subprocess.call(('xdg-open', filepath))
+            return
+        QMessageBox.warning(self, "No File Path", "No path set for psg report!")
 
     def buttonAttachDocReportClicked(self):
-        return
+        self.doc_report = str(QFileDialog.getOpenFileName(self, "Select Doctor's Report")[0])
+        self.buttonOpenDocReport.setEnabled(True)
 
     def buttonOpenDocReportClicked(self):
-        return
+        if self.doc_report is not None or '':
+            filepath = self.doc_report
+            if sys.platform.startswith('darwin'):
+                subprocess.call(('open', filepath))
+            elif os.name == 'nt':
+                os.startfile(filepath)
+            elif os.name == 'posix':
+                subprocess.call(('xdg-open', filepath))
+            return
+        QMessageBox.warning(self, "No File Path", "No path set for doctor's report!")
 
     def fetch_appointment(self, appointment_id):
         app_data = AppointmentData()
@@ -88,7 +106,11 @@ class AppointmentViewForm(QDialog, ui_appointmentview.Ui_Dialog):
         self.txtAppointmentNotes.setPlainText(app_record['notes'])
 
         self.psg_report = app_record['psgreport']
+        if self.psg_report is '':
+            self.buttonOpenPsgReport.setEnabled(False)
         self.doc_report = app_record['doctorreport']
+        if self.doc_report is '':
+            self.buttonOpenDocReport.setEnabled(False)
         self.ref_doc = app_record['refdoc']
 
     def fetch_patient(self, patient_id):
