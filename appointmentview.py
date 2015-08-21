@@ -23,6 +23,7 @@ from PySide.QtGui import QDialog, QMessageBox, QFileDialog
 import ui_appointmentview
 from db_data import AppointmentData, PatientData
 from editpatient import EditPatientForm
+from dialog_selectappointment import DialogSelectAppointment
 from db_queries import AppointmentQueries
 import subprocess, os, sys
 
@@ -55,9 +56,13 @@ class AppointmentViewForm(QDialog, ui_appointmentview.Ui_Dialog):
         edit_patient = EditPatientForm(self.txtPatientId.text())
         edit_patient.show()
         edit_patient.exec_()
+        self.fetch_patient(self.patient_id)
 
     def buttonViewPreviousAppointmentsClicked(self):
-        return
+        # Choose an existing appointment
+        selected_appointment = DialogSelectAppointment.getAppointment(self.patient_id)
+        self.appointment_id = selected_appointment
+        self.fetch_appointment(selected_appointment)
 
     def buttonSaveClicked(self):
         self.update_appointment()
@@ -76,6 +81,8 @@ class AppointmentViewForm(QDialog, ui_appointmentview.Ui_Dialog):
                 os.startfile(filepath)
             elif os.name == 'posix':
                 subprocess.call(('xdg-open', filepath))
+            else:
+                QMessageBox.warning(self, "Platform error", "Unable to detect platform!")
             return
         QMessageBox.warning(self, "No File Path", "No path set for psg report!")
 
@@ -92,6 +99,8 @@ class AppointmentViewForm(QDialog, ui_appointmentview.Ui_Dialog):
                 os.startfile(filepath)
             elif os.name == 'posix':
                 subprocess.call(('xdg-open', filepath))
+            else:
+                QMessageBox.warning(self, "Platform error", "Unable to detect platform!")
             return
         QMessageBox.warning(self, "No File Path", "No path set for doctor's report!")
 

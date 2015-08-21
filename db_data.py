@@ -135,6 +135,10 @@ class AppointmentData():
         record = self._returnSingleById(appointmentid)
         return record
 
+    def returnAllByPatient(self, patientid):
+        records = self._returnAllByPatient(patientid)
+        return records
+
     def _returnSingleById(self, app_id):
         query = QSqlQuery()
         query.exec_("SELECT * "
@@ -145,6 +149,40 @@ class AppointmentData():
             return None
         parsed_dict = self._parseToDict(query)
         return parsed_dict
+
+    def _returnAllByPatient(self, patientid):
+        query = QSqlQuery()
+
+        query.exec_("SELECT * "
+                    "FROM appointments "
+                    "WHERE patientid = '{}'".format(patientid))
+
+        if not query.isActive():
+            print(query.lastError().text())
+            return None
+
+        results = self._parseToList(query)
+        return results
+
+    def _parseToList(self, query):
+        parsed_data = []
+        if query:
+            while query.next():
+                data = []  # Hold individual appointment data
+                data.append(query.value(0))  # id
+                data.append(query.value(1))  # regdate
+                data.append(query.value(2))  # refdoctor
+                data.append(query.value(3))  # priority
+                data.append(query.value(4))  # testdate
+                data.append(query.value(5))  # diagnosis
+                data.append(query.value(6))  # ahi
+                data.append(query.value(7))  # treatment
+                data.append(query.value(8))  # psgreport
+                data.append(query.value(9))  # doctorreport
+                data.append(query.value(10))  # notes
+                data.append(query.value(11))  # patientid
+                parsed_data.append(data)
+        return parsed_data
 
     def _parseToDict(self, query):
         parsed_dict = dict.fromkeys(['id', 'regdate', 'refdoc', 'priority', 'testdate',
@@ -192,7 +230,7 @@ class GenericDataModel(QAbstractTableModel):
         return None
 
     def sort(self, col, order):
-        """sort table by given column number"""
+        # Obligatory flux capacitor molecular signalling mechanism
         self.emit(SIGNAL("layoutAboutToBeChanged()"))
         self.records = sorted(self.records,
                               key=operator.itemgetter(col))
@@ -206,7 +244,7 @@ if __name__ == '__main__':
     import db_init
 
     db_init.DatabaseInit()
-    patients = PatientData()
-    data = patients.returnAll()
-    for row in data:
-        print(str(row))
+
+    appointments = AppointmentData()
+    data2 = appointments.returnAllByPatient(112233)
+    print(data2)
