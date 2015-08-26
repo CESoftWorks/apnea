@@ -1,0 +1,93 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'allappointments.ui'
+#
+# Created: Wed Aug 26 11:06:31 2015
+#      by: pyside-uic 0.2.15 running on PySide 1.2.2
+#
+# WARNING! All changes made in this file will be lost!
+
+from PySide import QtCore, QtGui
+
+class Ui_Dialog(object):
+    def setupUi(self, Dialog):
+        Dialog.setObjectName("Dialog")
+        Dialog.resize(614, 424)
+        self.verticalLayout_5 = QtGui.QVBoxLayout(Dialog)
+        self.verticalLayout_5.setObjectName("verticalLayout_5")
+        self.horizontalLayout = QtGui.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.verticalLayout = QtGui.QVBoxLayout()
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.label = QtGui.QLabel(Dialog)
+        self.label.setObjectName("label")
+        self.verticalLayout.addWidget(self.label)
+        self.tableAppointments = QtGui.QTableView(Dialog)
+        self.tableAppointments.setObjectName("tableAppointments")
+        self.verticalLayout.addWidget(self.tableAppointments)
+        self.horizontalLayout.addLayout(self.verticalLayout)
+        self.line = QtGui.QFrame(Dialog)
+        self.line.setFrameShape(QtGui.QFrame.VLine)
+        self.line.setFrameShadow(QtGui.QFrame.Sunken)
+        self.line.setObjectName("line")
+        self.horizontalLayout.addWidget(self.line)
+        self.verticalLayout_4 = QtGui.QVBoxLayout()
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        spacerItem = QtGui.QSpacerItem(20, 13, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout_4.addItem(spacerItem)
+        self.groupBox = QtGui.QGroupBox(Dialog)
+        self.groupBox.setObjectName("groupBox")
+        self.verticalLayout_3 = QtGui.QVBoxLayout(self.groupBox)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.verticalLayout_2 = QtGui.QVBoxLayout()
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.radioUpcoming = QtGui.QRadioButton(self.groupBox)
+        self.radioUpcoming.setObjectName("radioUpcoming")
+        self.verticalLayout_2.addWidget(self.radioUpcoming)
+        self.radioWaitingList = QtGui.QRadioButton(self.groupBox)
+        self.radioWaitingList.setObjectName("radioWaitingList")
+        self.verticalLayout_2.addWidget(self.radioWaitingList)
+        self.radioPrevious = QtGui.QRadioButton(self.groupBox)
+        self.radioPrevious.setObjectName("radioPrevious")
+        self.verticalLayout_2.addWidget(self.radioPrevious)
+        self.radioAll = QtGui.QRadioButton(self.groupBox)
+        self.radioAll.setObjectName("radioAll")
+        self.verticalLayout_2.addWidget(self.radioAll)
+        self.verticalLayout_3.addLayout(self.verticalLayout_2)
+        self.verticalLayout_4.addWidget(self.groupBox)
+        spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout_4.addItem(spacerItem1)
+        self.btnViewAppointment = QtGui.QPushButton(Dialog)
+        self.btnViewAppointment.setObjectName("btnViewAppointment")
+        self.verticalLayout_4.addWidget(self.btnViewAppointment)
+        self.btnChangeDate = QtGui.QPushButton(Dialog)
+        self.btnChangeDate.setObjectName("btnChangeDate")
+        self.verticalLayout_4.addWidget(self.btnChangeDate)
+        self.btnDeleteAppointment = QtGui.QPushButton(Dialog)
+        self.btnDeleteAppointment.setObjectName("btnDeleteAppointment")
+        self.verticalLayout_4.addWidget(self.btnDeleteAppointment)
+        self.btnCancel = QtGui.QPushButton(Dialog)
+        self.btnCancel.setObjectName("btnCancel")
+        self.verticalLayout_4.addWidget(self.btnCancel)
+        spacerItem2 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout_4.addItem(spacerItem2)
+        self.horizontalLayout.addLayout(self.verticalLayout_4)
+        self.verticalLayout_5.addLayout(self.horizontalLayout)
+
+        self.retranslateUi(Dialog)
+        QtCore.QObject.connect(self.btnCancel, QtCore.SIGNAL("clicked()"), Dialog.close)
+        QtCore.QMetaObject.connectSlotsByName(Dialog)
+
+    def retranslateUi(self, Dialog):
+        Dialog.setWindowTitle(QtGui.QApplication.translate("Dialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("Dialog", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">All Appointments</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+        self.groupBox.setTitle(QtGui.QApplication.translate("Dialog", "Appointment Selection", None, QtGui.QApplication.UnicodeUTF8))
+        self.radioUpcoming.setText(QtGui.QApplication.translate("Dialog", "Upcoming", None, QtGui.QApplication.UnicodeUTF8))
+        self.radioWaitingList.setText(QtGui.QApplication.translate("Dialog", "Waiting List", None, QtGui.QApplication.UnicodeUTF8))
+        self.radioPrevious.setText(QtGui.QApplication.translate("Dialog", "Previous", None, QtGui.QApplication.UnicodeUTF8))
+        self.radioAll.setText(QtGui.QApplication.translate("Dialog", "All", None, QtGui.QApplication.UnicodeUTF8))
+        self.btnViewAppointment.setText(QtGui.QApplication.translate("Dialog", "View Appointment", None, QtGui.QApplication.UnicodeUTF8))
+        self.btnChangeDate.setText(QtGui.QApplication.translate("Dialog", "Change Date", None, QtGui.QApplication.UnicodeUTF8))
+        self.btnDeleteAppointment.setText(QtGui.QApplication.translate("Dialog", "Delete Appointment", None, QtGui.QApplication.UnicodeUTF8))
+        self.btnCancel.setText(QtGui.QApplication.translate("Dialog", "Cancel", None, QtGui.QApplication.UnicodeUTF8))
+
