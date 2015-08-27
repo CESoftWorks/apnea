@@ -26,6 +26,7 @@ import ui_mainwindow
 from newpatient import NewPatientForm
 from appointmentdates import AppointmentDatesForm
 from newappointment import NewAppointmentForm
+from allappointments import AllAppointmentsForm
 
 
 class MainWindow(QMainWindow,
@@ -68,6 +69,9 @@ class MainWindow(QMainWindow,
 
     def buttonViewAppointmentsClicked(self):
         print('Showing all booked appointments...')
+        allappointmentsform = AllAppointmentsForm()
+        allappointmentsform.show()
+        allappointmentsform.exec_()
 
     def buttonViewPatientsClicked(self):
         print('Launching patient archive...')

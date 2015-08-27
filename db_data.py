@@ -2,7 +2,7 @@ __author__ = 'Constantinos Eleftheriou'
 
 """
 Copyright (C) 2015 Constantinos Eleftheriou
-    
+
     This file is part of Apnea.
 
     Apnea is free software: you can redistribute it and/or modify
@@ -131,6 +131,11 @@ class AppointmentData():
                         'Test Date', 'Diagnosis', 'AHI', 'Treatment', 'PSGRpath',
                         'DocRpath', 'Notes', 'Patient ID']
 
+    def returnAll(self):
+        data = self._returnAll()
+        model = GenericDataModel(data, self.headers)
+        return model
+
     def returnSingleById(self, appointmentid):
         record = self._returnSingleById(appointmentid)
         return record
@@ -138,6 +143,17 @@ class AppointmentData():
     def returnAllByPatient(self, patientid):
         records = self._returnAllByPatient(patientid)
         return records
+
+    def _returnAll(self):
+        query = QSqlQuery()
+        query.exec_("SELECT * FROM appointments ORDER BY id ASC")
+
+        if not query.isActive():
+            print(query.lastError().text())
+            return None
+
+        appointments = self._parseToList(query)
+        return appointments
 
     def _returnSingleById(self, app_id):
         query = QSqlQuery()
@@ -215,7 +231,7 @@ class GenericDataModel(QAbstractTableModel):
         return len(self.records)
 
     def columnCount(self, parent):
-        return len(self.header[0])
+        return len(self.header)
 
     def data(self, index, role):
         if not index.isValid():
@@ -248,3 +264,4 @@ if __name__ == '__main__':
     appointments = AppointmentData()
     data2 = appointments.returnAllByPatient(112233)
     print(data2)
+    data = appointments._returnAll()

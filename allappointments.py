@@ -21,9 +21,37 @@ Copyright (C) 2015 Constantinos Eleftheriou
 
 from PySide.QtGui import QDialog
 import ui_allappointments
+from db_data import AppointmentData
 
 class AllAppointmentsForm(QDialog, ui_allappointments.Ui_Dialog):
 
     def __init__(self, parent=None):
         super(AllAppointmentsForm, self).__init__(parent)
         self.setupUi(self)
+        self.uiConnect()
+        self.radioUpcoming.setChecked(True)
+        self.updateTable()
+
+    def uiConnect(self):
+        self.btnViewAppointment.clicked.connect(self.btnViewAppointmentClicked)
+        self.btnChangeDate.clicked.connect(self.btnChangeDateClicked)
+        self.btnDeleteAppointment.clicked.connect(self.btnDeleteAppointmentClicked)
+        self.radioUpcoming.toggled.connect(self.updateTable)
+        self.radioWaitingList.toggled.connect(self.updateTable)
+        self.radioPrevious.toggled.connect(self.updateTable)
+        self.radioAll.toggled.connect(self.updateTable)
+
+    def updateTable(self):
+        appointments = AppointmentData()
+        if self.radioAll.isChecked():
+             data = appointments.returnAll()
+             self.tableAppointments.setModel(data)
+
+    def btnViewAppointmentClicked(self):
+        return
+
+    def btnChangeDateClicked(self):
+        return
+
+    def btnDeleteAppointmentClicked(self):
+        return

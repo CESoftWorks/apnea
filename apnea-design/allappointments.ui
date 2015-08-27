@@ -26,7 +26,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QTableView" name="tableAppointments"/>
+        <widget class="QTableView" name="tableAppointments">
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
