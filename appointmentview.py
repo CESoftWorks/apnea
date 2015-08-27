@@ -2,7 +2,7 @@ __author__ = 'Constantinos Eleftheriou'
 
 """
 Copyright (C) 2015 Constantinos Eleftheriou
-    
+
     This file is part of Apnea.
 
     Apnea is free software: you can redistribute it and/or modify

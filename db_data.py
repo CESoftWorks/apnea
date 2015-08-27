@@ -144,6 +144,11 @@ class AppointmentData():
         records = self._returnAllByPatient(patientid)
         return records
 
+    def returnUpcoming(self):
+        data = self._returnUpcoming()
+        model = GenericDataModel(data, self.headers)
+        return model
+
     def _returnAll(self):
         query = QSqlQuery()
         query.exec_("SELECT * FROM appointments ORDER BY id ASC")
@@ -173,6 +178,20 @@ class AppointmentData():
                     "FROM appointments "
                     "WHERE patientid = '{}'".format(patientid))
 
+        if not query.isActive():
+            print(query.lastError().text())
+            return None
+
+        results = self._parseToList(query)
+        return results
+
+    def _returnUpcoming(self):
+        query = QSqlQuery()
+        # What the fuck am I even doing here
+        query.exec_("SELECT * FROM appointments "
+                    "WHERE testdate >= strftime('%d/%m/') || substr(strftime('%Y'), 3, 2)")
+                    # That is some seriously ugly ass shit
+                    # All to fit a really shitty date system I implemented
         if not query.isActive():
             print(query.lastError().text())
             return None
