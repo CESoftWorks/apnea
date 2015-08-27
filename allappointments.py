@@ -52,15 +52,15 @@ class AllAppointmentsForm(QDialog, ui_allappointments.Ui_Dialog):
         if self.radioUpcoming.isChecked():
             records = appointments.returnUpcoming()
         if self.radioWaitingList.isChecked():
-            return
+            records = appointments.returnWaiting()
         if self.radioPrevious.isChecked():
-            return
+            records = appointments.returnPrevious()
         self.tableAppointments.setModel(records)
         self.hideIrrelevantColumns()
 
     def hideIrrelevantColumns(self):
         #  Pretty self explanatory, hide shit user doesn't need at this stage
-        for col in [4,5,6,7,8,9,10]:
+        for col in [5,6,7,8,9,10]:
             self.tableAppointments.hideColumn(col)
 
     def btnViewAppointmentClicked(self):
@@ -70,7 +70,6 @@ class AllAppointmentsForm(QDialog, ui_allappointments.Ui_Dialog):
         patient_id = index.sibling(row, 11).data()
         if appointment_id is not None:
             app_view = AppointmentViewForm(appointment_id, patient_id)
-            app_view.show()
             app_view.exec_()
 
     def btnChangeDateClicked(self):

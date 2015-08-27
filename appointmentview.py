@@ -54,7 +54,6 @@ class AppointmentViewForm(QDialog, ui_appointmentview.Ui_Dialog):
 
     def buttonEditPatientClicked(self):
         edit_patient = EditPatientForm(self.txtPatientId.text())
-        edit_patient.show()
         edit_patient.exec_()
         self.fetch_patient(self.patient_id)
 

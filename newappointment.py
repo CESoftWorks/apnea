@@ -2,7 +2,7 @@ __author__ = 'Constantinos Eleftheriou'
 
 """
 Copyright (C) 2015 Constantinos Eleftheriou
-    
+
     This file is part of Apnea.
 
     Apnea is free software: you can redistribute it and/or modify
@@ -104,7 +104,6 @@ class NewAppointmentForm(QDialog, ui_newappointment.Ui_Dialog):
             return  # No point going any further if appointment was not added
         # Onwards
         proceed_form = AppointmentViewForm(last_id, patient)
-        proceed_form.show()
         proceed_form.exec_()
         self.close()
 

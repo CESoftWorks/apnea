@@ -149,6 +149,16 @@ class AppointmentData():
         model = GenericDataModel(data, self.headers)
         return model
 
+    def returnWaiting(self):
+        data = self._returnWaiting()
+        model = GenericDataModel(data, self.headers)
+        return model
+
+    def returnPrevious(self):
+        data = self._returnPrevious()
+        model = GenericDataModel(data, self.headers)
+        return model
+
     def _returnAll(self):
         query = QSqlQuery()
         query.exec_("SELECT * FROM appointments ORDER BY id ASC")
@@ -192,6 +202,31 @@ class AppointmentData():
                     "WHERE testdate >= strftime('%d/%m/') || substr(strftime('%Y'), 3, 2)")
                     # That is some seriously ugly ass shit
                     # All to fit a really shitty date system I implemented
+        if not query.isActive():
+            print(query.lastError().text())
+            return None
+
+        results = self._parseToList(query)
+        return results
+
+    def _returnWaiting(self):
+        query = QSqlQuery()
+
+        query.exec_("SELECT * FROM appointments WHERE testdate = '' OR testdate IS NULL")
+
+        if not query.isActive():
+            print(query.lastError().text())
+            return None
+
+        results = self._parseToList(query)
+        return results
+
+    def _returnPrevious(self):
+        query = QSqlQuery()
+        # Ugh
+        query.exec_("SELECT * FROM appointments "
+                    "WHERE testdate < strftime('%d/%m/') || substr(strftime('%Y'), 3, 2)")
+                    # If anybody ever fixes this, fuck you
         if not query.isActive():
             print(query.lastError().text())
             return None

@@ -44,7 +44,6 @@ class DialogSelectPatient(QDialog, uidlg_selectpatient.Ui_Dialog):
 
     def buttonAddNewPatientClicked(self):
         newpatientform = NewPatientForm()
-        newpatientform.show()
         newpatientform.exec_()
         self.loadAllPatients()
 
