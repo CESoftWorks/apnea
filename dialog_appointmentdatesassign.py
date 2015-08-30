@@ -66,6 +66,9 @@ class DialogSelectAppointmentDate(QDialog, uidlg_appointmentassigndate.Ui_Dialog
         # TODO Pickle operations could be in a separate module
         self.retrieveDates()
         self.listAvailableDates.clear()  # Avoid duplication
+        if not os.path.isfile(fname):
+            print("Dude, where's my pickle?")
+            return
         for date in sorted(self.dates):
             if date >= datetime.date.today():
                 self.listAvailableDates.addItem(datetime.date.strftime(date, "%d/%m/%y"))
